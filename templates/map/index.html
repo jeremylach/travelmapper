@@ -1,4 +1,12 @@
-    <div class="map" id="map"></div>
+{% extends "base.html" %}
+{% block content %}
+
+    <script>
+        var moments = {{ moments_data|safe }};
+console.log(moments);
+    </script>
+	<div class="map" id="map"></div>
+{% endblock %}
 <!--
 1. authenticate w/instagram
     a. Create user to match - User model

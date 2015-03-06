@@ -35,6 +35,8 @@ TEMPLATE_DIRS = (
     PROJECT_DIR.child("templates"), 
 )
 
+#print PROJECT_DIR
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -44,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'map'
 )
 
@@ -61,6 +64,14 @@ ROOT_URLCONF = 'travelmapper.urls'
 
 WSGI_APPLICATION = 'travelmapper.wsgi.application'
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -101,3 +112,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+STATICFILES_DIRS = (
+    #os.path.join(BASE_DIR, "static"),
+    #PROJECT_DIR.child("static"),
+    os.path.join(PROJECT_DIR, "map/static/map"),
+)
+#STATIC_ROOT = PROJECT_DIR.child("static")
+#STATIC_ROOT = '/Developer/django/travelmapper/staticfiles/'
+
+#print STATICFILES_DIRS

@@ -1,13 +1,19 @@
-{% load static %}
+
+{% load staticfiles %}
 <!DOCTYPE html>
 
 <html>
     <head>
         <title>Travel Mapper</title>
-        <link rel="stylesheet" href="{% static '/style.css' %}">    
+        <link rel="stylesheet" href="{{ STATIC_URL }}/css/style.css">    
+        <link rel="stylesheet" href="{{ STATIC_URL }}/js/vendor/Leaflet/leaflet.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}/js/vendor/LeafletMarkerCluster/MarkerCluster.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}/js/vendor/LeafletMarkerCluster/MarkerCluster.Default.css">
+        <!--<link rel="stylesheet" href="{% static "/css/style.css" %}">    
         <link rel="stylesheet" href="{% static '/js/vendor/Leaflet/leaflet.css' %}">
         <link rel="stylesheet" href="{% static '/js/vendor/LeafletMarkerCluster/MarkerCluster.css' %}">
         <link rel="stylesheet" href="{% static '/js/vendor/LeafletMarkerCluster/MarkerCluster.Default.css' %}">
+        -->
     </head>
     
     <body>      
@@ -19,10 +25,16 @@
     
         {% endblock %}
     
-        <script src="{% static '/js/vendor/Leaflet/leaflet.js' %}"></script>
+        <script src="{{ STATIC_URL }}/js/vendor/Leaflet/leaflet.js"></script>
+        <script src="{{ STATIC_URL }}/js/vendor/LeafletMarkerCluster/leaflet.markercluster.js"></script>
+        <script src="{{ STATIC_URL }}/js/vendor/jquery-1.10.1.min.js"></script>
+        <script src="{{ STATIC_URL }}/js/main.js"></script>
+        <script src="{{ STATIC_URL }}/js/mapper.js"></script>
+        
+        <!--<script src="{% static '/js/vendor/Leaflet/leaflet.js' %}"></script>
         <script src="{% static '/js/vendor/LeafletMarkerCluster/leaflet.markercluster.js' %}"></script>
         <script src="{% static '/js/vendor/jquery-1.10.1.min.js' %}"></script>
         <script src="{% static '/js/main.js' %}"></script>
-        <script src="{% static '/js/mapper.js' %}"></script>
+        <script src="{% static '/js/mapper.js' %}"></script>-->
     </body>
 </html>

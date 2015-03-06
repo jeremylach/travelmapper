@@ -13,3 +13,15 @@ class PhotoMoment(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    @staticmethod
+    def get_moments_json():
+        moments = PhotoMoment.objects.all().order_by("-pub_date")
+        moments_json = []
+        if moments:
+            for m in moments:
+                moments_json.append({"location":{"lat": m.lat, "lng": m.lng}, "name": str(m.name)})
+
+        return moments_json
+        
+        
