@@ -280,11 +280,14 @@
 {
   "fields": {
     "name": "Hilo, Big Island, HI",
+    "created": "2015-03-06T20:53:18Z",
     "insta_id": "0000",
+    "link": "http://google.com",
     "user": 1,
     "lat": 19.724534,
     "lng": -155.099487,
-    "pub_date": "2015-03-06T20:53:18Z"
+    "standard_resolution": "https://igcdn-photos-f-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/10914181_702928619804845_1741305837_n.jpg",
+    "thumbnail": "https://igcdn-photos-f-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/10914181_702928619804845_1741305837_n.jpg"
   },
   "model": "map.photomoment",
   "pk": 1
@@ -292,11 +295,14 @@
 {
   "fields": {
     "name": "South Point, Big Island, HI",
+    "created": "2015-03-06T20:54:08Z",
     "insta_id": "0001",
+    "link": "http://google.com",
     "user": 1,
     "lat": 18.934664,
     "lng": -155.669403,
-    "pub_date": "2015-03-06T20:54:08Z"
+    "standard_resolution": "https://igcdn-photos-c-a.akamaihd.net/hphotos-ak-xfa1/t51.2885-15/10950590_456180864529882_973177142_n.jpg",
+    "thumbnail": "https://igcdn-photos-c-a.akamaihd.net/hphotos-ak-xfa1/t51.2885-15/10950590_456180864529882_973177142_n.jpg"
   },
   "model": "map.photomoment",
   "pk": 2
@@ -326,5 +332,31 @@
   },
   "model": "admin.logentry",
   "pk": 2
+},
+{
+  "fields": {
+    "action_flag": 2,
+    "action_time": "2015-03-06T21:30:18.189Z",
+    "object_repr": "South Point, Big Island, HI",
+    "object_id": "2",
+    "change_message": "Changed standard_resolution and thumbnail.",
+    "user": 1,
+    "content_type": 7
+  },
+  "model": "admin.logentry",
+  "pk": 3
+},
+{
+  "fields": {
+    "action_flag": 2,
+    "action_time": "2015-03-06T21:32:02.486Z",
+    "object_repr": "Hilo, Big Island, HI",
+    "object_id": "1",
+    "change_message": "Changed standard_resolution and thumbnail.",
+    "user": 1,
+    "content_type": 7
+  },
+  "model": "admin.logentry",
+  "pk": 4
 }
 ]
