@@ -11,8 +11,8 @@ class PhotoMoment(models.Model):
     #country = models.CharField(max_length=100)
     user = models.ForeignKey(User)
     standard_resolution = models.CharField(max_length=400)
-    thumbnail = models.CharField(max_length=400)
-    link = models.CharField(max_length=400)
+    thumbnail = models.CharField(max_length=400, blank=True)
+    link = models.CharField(max_length=400, blank=True)
 
     def __unicode__(self):
         return self.name
