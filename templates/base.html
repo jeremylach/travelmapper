@@ -21,6 +21,7 @@
         <![endif]-->
 
         {% if user and not user.is_anonymous %}
+            {{ photos|safe }}
             Welcome {% social_name user %}
             <br />
             <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>

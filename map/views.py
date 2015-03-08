@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from .models import *
 from instagram import client, subscriptions
 from django.contrib.auth import logout as auth_logout
-
+from instagram import client, subscriptions
 
 class MapView(TemplateView):
     template_name = "map/index.html"
@@ -19,6 +19,25 @@ class MapView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(MapView, self).get_context_data(**kwargs)
         context['moments_data'] = PhotoMoment.get_moments_json()
+
+        if self.request.user.is_authenticated:
+
+            social_user = self.request.user.social_auth.get(provider="instagram")
+            access_token = social_user.extra_data['access_token']
+            
+            api = client.InstagramAPI(access_token=access_token)
+            recent_media, next = api.user_recent_media()
+            photos = []
+            content = ""
+            for media in recent_media:
+                photos.append('<div style="float:left;">')
+                if(media.type == 'video'):
+                    photos.append('<video controls width height="150"><source type="video/mp4" src="%s"/></video>' % (media.get_standard_resolution_url()))
+                else:
+                    photos.append('<img src="%s"/>' % (media.get_low_resolution_url()))
+            content += ''.join(photos)
+
+            context['photos'] = content
         return context
 
 
