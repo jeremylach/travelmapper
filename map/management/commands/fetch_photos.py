@@ -26,7 +26,7 @@ class Command(NoArgsCommand):
                 #print access_token
 
                 api = client.InstagramAPI(access_token=access_token)
-                if next_max_id == 0:
+                if next_max_id == 0 or next_max_id == "0":
                     recent_media, next = api.user_recent_media(count=20)
                 else:
                     recent_media, next = api.user_recent_media(count=20, max_id=next_max_id)

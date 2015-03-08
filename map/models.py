@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 #from social_auth.models import AuthSocialUser
+from django.core import serializers
 
 #class MapUser(AbstractUser):
 #    userid = models.AutoField(primary_key=True)
@@ -56,8 +57,9 @@ class PhotoMoment(models.Model):
         moments = PhotoMoment.objects.all().order_by("-created")
         moments_json = []
         if moments:
-            for m in moments:
-                moments_json.append({"location":{"lat": m.lat, "lng": m.lng}, "name": str(m.name)})
+            #for m in moments:
+            #    moments_json.append(serializers.serialize("json", m))#{"location":{"lat": m.lat, "lng": m.lng}, "name": m.name.encode('utf-8')})
+            moments_json = serializers.serialize('json', moments)
 
         return moments_json
         

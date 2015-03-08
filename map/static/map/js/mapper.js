@@ -51,38 +51,29 @@ function mapper() {
 
 
 //TODO: Create this markup the jquery way.
-/*function generate_map_marker_popup(event_obj) {
-    // Please lint me with JSHint.
-    'use strict';
-    /* JSHint directives */
-    /* global idj, enquire, L */
-    /* exported idj */
-    /* jshint browser:true, jquery:true */
-/*
-    var output = "<div class='eventPopup'>";
-        if (event_obj.img !=='') { output += "<img src='"+event_obj.img+"' class='eventPopup-thumb' />"; }
-        output += "<div class='eventPopup-text'>";
-            output += "<div class='eventPopup-details'>";
-                output += "<div class='eventPopup-date'>" + event_obj.date + "</div>";
-                output += "<h3 class='eventPopup-artist'>" + event_obj.artist + "</h3>";
-                output += "<div class='eventPopup-location'>";
-                    output += "<div class='eventPopup-cityState'>" + event_obj.location.city_state + "</div>";
-                    output += "<div class='eventPopup-venue'>" + event_obj.venue + "</div>";
-                output += "</div>";
-            output += "</div>";
-            output += "<div class='eventPopup-actions'>";
-                if(event_obj.fb_link !== null) {
-                    output += "<a href='"+event_obj.fb_link+"' class='btn btn-muted btn-mini'>RSVP</a>";
+function generate_map_marker_popup(moment) {
+    
+    var output = "<div class='popup'>";
+        
+        output += "<img src='"+moment.fields.thumbnail+"' class='' />";
+        
+        output += "<div class=''>";
+            output += "<div class='details'>";
+                output += "<div class='date'>" + dateToYMD(new Date(moment.fields.created)) + "</div>";
+                if (moment.fields.name !=='') {                
+                    output += "<h3 class='name'>" + moment.fields.name + "</h3>";
                 }
-                if(event_obj.link !== null) {
-                    output += "<a href='"+event_obj.link+"' class='btn btn-muted btn-mini ticket-link' onclick='track_ticket_link(this)' data-artist-name='"+event_obj.artist+"' data-event-date='"+dateToYMD(new Date(event_obj.date))+"'>"+event_obj.link_text+"</a>";
+            output += "</div>";
+            output += "<div class='popup-actions'>";
+                if(moment.link !== null) {
+                    output += "<a href='"+moment.fields.link+"' target='_blank' class='btn btn-muted btn-mini'>View on Instagram</a>";
                 }
             output += "</div>";
         output += "</div>";
     output += "</div>";
 
     return output;
-}*/
+}
 
 function reset_map(results) {
     // Please lint me with JSHint.
@@ -111,10 +102,11 @@ function remove_map() {
 }
 
 function dateToYMD(date) {
-    var d = date.getDate();
-    var m = date.getMonth() + 1;
-    var y = date.getFullYear();
-    return (m<=9 ? '0' + m : m) + (d <= 9 ? '0' + d : d) + y;
+    //var d = date.getDate();
+    //var m = date.getMonth() + 1;
+    //var y = date.getFullYear();
+    //return (m<=9 ? '0' + m : m) + (d <= 9 ? '0' + d : d) + y;
+    return date.toLocaleString();
 }
 
 //Adds markers to map from moments
@@ -123,8 +115,8 @@ $(window).on('draw_markers',function(event) {
 
         if(map.markers_cluster === undefined) {
             ////Uncomment this line and comment the next to enable marker clustering.
-            //map.markers_cluster = new L.MarkerClusterGroup({spiderfyOnMaxZoom: true, showCoverageOnHover: false, zoomToBoundsOnClick: false});
-            map.markers_cluster = new L.layerGroup();
+            map.markers_cluster = new L.MarkerClusterGroup({spiderfyOnMaxZoom: true, showCoverageOnHover: false, zoomToBoundsOnClick: true});
+            //map.markers_cluster = new L.layerGroup();
         } else {
             window.console.log("reset");
             reset_map();
@@ -136,21 +128,22 @@ $(window).on('draw_markers',function(event) {
             $(moments).each(function() {
                 //window.console.log(this);
                 //window.console.log(this);
-                if(this.location.lat !== null) {
+                if(this.fields.lat !== null) {
                     //var the_icon = map.event_icon;
 
                     /*if(this.sold_out) {
                         the_icon = map.event_sold_out_icon;
                     }*/
 
-                    var new_marker = new L.marker([this.location.lat, this.location.lng]/*, {icon: the_icon}*/);//.bindPopup(generate_map_marker_popup(this), {maxWidth: 415, minWidth: 280});
+                    var new_marker = new L.marker([this.fields.lat, this.fields.lng]).bindPopup(generate_map_marker_popup(this));/*, {icon: the_icon}*///);//.bindPopup(generate_map_marker_popup(this), {maxWidth: 415, minWidth: 280});
                     map.markers_cluster.addLayer(new_marker);
                 }
             });
             if(!map.hasLayer(map.markers_cluster)) {
                 map.addLayer(map.markers_cluster);
-            }
-            ////map.fitBounds(map.markers_cluster.getBounds());
+            } 
+        //    map.fitBounds(L.latLngBounds(map.markers_cluster));
+            map.fitBounds(map.markers_cluster.getBounds());
         } else {
             map.setView([35, -33], 2);
         }
