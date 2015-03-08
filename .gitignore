@@ -1,0 +1,5 @@
+assets
+avatars
+.DS_Store
+#travelmapper/settings.py
+*.pyc

@@ -47,7 +47,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'map'
+    'social_auth',
+    'map',
+    #'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,6 +60,22 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+)
+
+#AUTHENTICATION_BACKENDS = (
+#  'social_auth.backends.instagram.InstagramAuth2Backend',
+#  'django.contrib.auth.backends.ModelBackend',
+#)
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.facebook.FacebookBackend',
+    'social_auth.backends.google.GoogleOAuthBackend',
+    'social_auth.backends.google.GoogleOAuth2Backend',
+    'social_auth.backends.google.GoogleBackend',
+    'social_auth.backends.contrib.instagram.InstagramBackend',
+    'social_auth.backends.OpenIDBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 ROOT_URLCONF = 'travelmapper.urls'
@@ -71,6 +89,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
+    'social_auth.context_processors.social_auth_by_type_backends',
+    'django.core.context_processors.request',
 )
 
 # Database
@@ -128,3 +148,24 @@ STATICFILES_DIRS = (
 #STATIC_ROOT = '/Developer/django/travelmapper/staticfiles/'
 
 #print STATICFILES_DIRS
+
+
+######SOCIAL LOGIN######
+SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
+SOCIAL_AUTH_UID_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
+SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
+
+SOCIAL_AUTH_ENABLED_BACKENDS = ('instagram')
+
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_ERROR_URL = '/auth/login/error/'
+
+#SOCIAL_AUTH_USER_MODEL = 'map.MapUser'
+#AUTH_USER_MODEL = 'map.MapUser'
+
+INSTAGRAM_CLIENT_ID = '5da02e2d2c14451593b35812ee2282e9'
+INSTAGRAM_CLIENT_SECRET = '93a7cb4bfb134a1a86e3491b36ce7909'

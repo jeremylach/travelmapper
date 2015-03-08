@@ -5,5 +5,6 @@ from django.conf import settings
 urlpatterns = patterns('',
     #url(r'^story/$', Index.as_view(), name='index'),
     url(r'^$', MapView.as_view(), name='index'),
-    url(r'^oauth_callback/$', InstagramAuth.as_view(), name='oauth_callback')
+    url(r'^logout/$', 'logout', name='logout'),
+    #url(r'^oauth_callback/$', InstagramAuth.as_view(), name='oauth_callback')
 )

@@ -1,7 +1,6 @@
-
+{% load map_tags %}
 {% load staticfiles %}
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>Travel Mapper</title>
@@ -20,7 +19,15 @@
         <!--[if lte IE 9]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
+
+        {% if user and not user.is_anonymous %}
+            Welcome {% social_name user %}
+            <br />
+            <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+        {% else %}
+            <a href="{% url 'socialauth_begin' 'instagram' %}">Login with Instagram</a>        
+        {% endif %}        
+
         {% block content %}
     
         {% endblock %}
