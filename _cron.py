@@ -1,16 +1,19 @@
-from django.core.management.base import NoArgsCommand
 import datetime
 from social_auth.db.django_models import *
 from map.models import *
 from instagram import client, subscriptions
 from django.db.utils import IntegrityError
 
-class Command(NoArgsCommand):
+from django_cron import cronScheduler, Job
+
+class FetchPhotos(Job):
     help = """
            Fetches instagram photos for each user in the system
            """
     
-    def handle_noargs(self, **options):
+    run_every = 20
+
+    def job(self):
         social_users = UserSocialAuth.objects.all()
 
         for social_user in social_users:
@@ -59,3 +62,5 @@ class Command(NoArgsCommand):
         
             print "Fetched photos for: %s" % social_user.user
 
+
+cronScheduler.register(FetchPhotos)

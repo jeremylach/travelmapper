@@ -8,3 +8,4 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'logout', name='logout'),
     #url(r'^oauth_callback/$', InstagramAuth.as_view(), name='oauth_callback')
 )
+

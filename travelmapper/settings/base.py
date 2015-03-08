@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'social_auth',
     'map',
+    #'django_cron'
     #'social.apps.django_app.default',
 )
 

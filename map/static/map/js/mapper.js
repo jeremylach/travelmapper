@@ -135,7 +135,11 @@ $(window).on('draw_markers',function(event) {
                         the_icon = map.event_sold_out_icon;
                     }*/
 
-                    var new_marker = new L.marker([this.fields.lat, this.fields.lng]).bindPopup(generate_map_marker_popup(this));/*, {icon: the_icon}*///);//.bindPopup(generate_map_marker_popup(this), {maxWidth: 415, minWidth: 280});
+                    var new_marker = new L.marker([this.fields.lat, this.fields.lng]).bindPopup(generate_map_marker_popup(this), {maxWidth: 150, minWidth: 150});
+                
+                    new_marker.on("mouseover", function(e) {
+                            e.target.openPopup();
+                        });
                     map.markers_cluster.addLayer(new_marker);
                 }
             });
@@ -143,7 +147,7 @@ $(window).on('draw_markers',function(event) {
                 map.addLayer(map.markers_cluster);
             } 
         //    map.fitBounds(L.latLngBounds(map.markers_cluster));
-            map.fitBounds(map.markers_cluster.getBounds());
+            zoom_to_fit();
         } else {
             map.setView([35, -33], 2);
         }
@@ -164,6 +168,11 @@ $(window).on('draw_markers',function(event) {
         reset_map(false);
     }
 });
-
+function zoom_to_fit() {
+    map.fitBounds(map.markers_cluster.getBounds());
+}
 $(document).ready(function() {
+    $("#zoom-fit").click(function() {
+        zoom_to_fit();
+    });
 });

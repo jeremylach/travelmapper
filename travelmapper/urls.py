@@ -13,3 +13,7 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += map.urls.urlpatterns
+
+#import django_cron
+#print dir(django_cron)
+#django_cron.autodiscover()
