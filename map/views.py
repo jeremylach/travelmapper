@@ -20,13 +20,13 @@ class MapView(TemplateView):
         context = super(MapView, self).get_context_data(**kwargs)
         context['moments_data'] = PhotoMoment.get_moments_json()
 
-        if self.request.user.is_authenticated:
+        if not self.request.user.is_anonymous() and self.request.user.is_authenticated():
 
             social_user = self.request.user.social_auth.get(provider="instagram")
             access_token = social_user.extra_data['access_token']
-            
             api = client.InstagramAPI(access_token=access_token)
             recent_media, next = api.user_recent_media()
+            print next
             photos = []
             content = ""
             for media in recent_media:
@@ -34,10 +34,18 @@ class MapView(TemplateView):
                 if(media.type == 'video'):
                     photos.append('<video controls width height="150"><source type="video/mp4" src="%s"/></video>' % (media.get_standard_resolution_url()))
                 else:
-                    photos.append('<img src="%s"/>' % (media.get_low_resolution_url()))
+                    try:
+                        named_location = media.location.name
+                    except AttributeError:
+                        named_location = ""
+                    photos.append('<img src="%s" alt="%s"/>' % (media.get_low_resolution_url(), named_location))
+                photos.append("</div>")
+                    #print media.location.__dict__
             content += ''.join(photos)
-
-            context['photos'] = content
+            
+            context['photos'] = content #Map.get_moments_json(social_user)
+        else:
+            context['photos'] = "log in!"
         return context
 
 
