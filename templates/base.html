@@ -24,7 +24,7 @@
             <!--{{ photos|safe }}-->
             Welcome {% social_name user %}
             <br />
-            <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+            <a href="{% url 'auth_logout' %}">Logout</a>
         {% else %}
             <a href="{% url 'socialauth_begin' 'instagram' %}">Login with Instagram</a>        
         {% endif %}        

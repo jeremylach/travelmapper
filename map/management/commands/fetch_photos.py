@@ -16,6 +16,10 @@ class Command(NoArgsCommand):
         for social_user in social_users:
             try:
                 next_max_id = social_user.extra_data['next_max_id']
+                print "NEXT MAX ID!"
+                print next_max_id
+                if next_max_id == "None":
+                    continue
             except KeyError:
                 next_max_id = 0
                 print "no max id found"
@@ -34,7 +38,10 @@ class Command(NoArgsCommand):
                 print "+============+"
                 print next
                 print "**************"
-                next_max_id = next.split("max_id=")[1]
+                if next != None:
+                    next_max_id = next.split("max_id=")[1]
+                else:
+                    next_max_id = "None"
                 social_user.extra_data['next_max_id'] = next_max_id
                 social_user.save()
                 photos = []

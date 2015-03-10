@@ -18,14 +18,17 @@ class MapView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(MapView, self).get_context_data(**kwargs)
-        context['moments_data'] = PhotoMoment.get_moments_json()
+        #context['moments_data'] = PhotoMoment.get_moments_json()
 
-        if not self.request.user.is_anonymous() and self.request.user.is_authenticated():
-
+        if 'username' in self.kwargs:
+            target_user = self.kwargs['username']
+#        elif not self.request.user.is_anonymous() and self.request.user.is_authenticated():
             social_user = self.request.user.social_auth.get(provider="instagram")
-            all_user_moment_data = PhotoMoment.get_moments_json()
+            all_user_moment_data = PhotoMoment.get_moments_json(self.request.user)
 
-            context['moment_data'] = all_user_moment_data
+            context['moments_data'] = all_user_moment_data
+        else:
+            context['moments_data'] = []
             
             #photos = []
             #content = ""
@@ -44,8 +47,8 @@ class MapView(TemplateView):
             #content += ''.join(photos)
             
             #context['photos'] = content #Map.get_moments_json(social_user)
-        else:
-            context['photos'] = "log in!"
+        #else:
+        #    context['photos'] = "log in!"
         return context
 
 
@@ -55,7 +58,7 @@ class MapView(TemplateView):
 
 def logout(request):
     auth_logout(request)
-    return redirect('/')
+    return redirect('index')
 
 #class InstagramAuth():
 #    code = request.GET.get("code")
