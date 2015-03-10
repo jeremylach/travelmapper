@@ -53,8 +53,8 @@ class PhotoMoment(models.Model):
         return self.name
 
     @staticmethod
-    def get_moments_json(user):#, social_user):
-        moments = PhotoMoment.objects.filter(user=user).order_by("-created")
+    def get_moments_json(username):#, social_user):
+        moments = PhotoMoment.objects.filter(user__username=username).order_by("-created")
         moments_json = []
         if moments:
             #for m in moments:

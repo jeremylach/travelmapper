@@ -21,14 +21,16 @@ class MapView(TemplateView):
         #context['moments_data'] = PhotoMoment.get_moments_json()
 
         if 'username' in self.kwargs:
-            target_user = self.kwargs['username']
-#        elif not self.request.user.is_anonymous() and self.request.user.is_authenticated():
-            social_user = self.request.user.social_auth.get(provider="instagram")
-            all_user_moment_data = PhotoMoment.get_moments_json(self.request.user)
-
-            context['moments_data'] = all_user_moment_data
+            target_username = self.kwargs['username']
+        elif not self.request.user.is_anonymous() and self.request.user.is_authenticated():
+            target_username = self.request.user.username           
         else:
             context['moments_data'] = []
+            return context
+            #social_user = self.request.user.social_auth.get(provider="instagram")
+        all_user_moment_data = PhotoMoment.get_moments_json(target_username)
+
+        context['moments_data'] = all_user_moment_data
             
             #photos = []
             #content = ""
