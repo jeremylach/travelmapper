@@ -1,6 +1,8 @@
 Django==1.7.5
 PyJWT==0.4.1
+South==1.0.2
 Unipath==1.1
+django-common-helpers==0.6.4
 django-extensions==1.5.0
 django-social-auth==0.7.28
 httplib2==0.9
