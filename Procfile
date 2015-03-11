@@ -1,2 +1,2 @@
-#web: newrelic-admin run-program gunicorn outofeden.wsgi
-web: gunicorn nyxl.wsgi
+#web: newrelic-admin run-program gunicorn travelmapper.wsgi
+web: gunicorn travelmapper.wsgi
