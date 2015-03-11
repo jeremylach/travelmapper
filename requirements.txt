@@ -5,6 +5,7 @@ Unipath==1.1
 django-common-helpers==0.6.4
 django-extensions==1.5.0
 django-social-auth==0.7.28
+gunicorn==19.3.0
 httplib2==0.9
 oauth2==1.5.211
 oauthlib==0.7.2
