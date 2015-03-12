@@ -141,6 +141,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 STATIC_ROOT = PROJECT_DIR.child("static")
+
 #STATIC_ROOT = '/Developer/django/travelmapper/staticfiles/'
 
 #print STATICFILES_DIRS
