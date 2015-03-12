@@ -1,5 +1,9 @@
 body {
     background-color: #333;
+    color: #FFF;
+}
+a {
+    color: #FFF;
 }
 
 #map {
@@ -8,4 +12,9 @@ body {
     min-height: 600px;
     min-width: 1000px;
     border: 1px solid red;
+}
+
+.popup {
+    color: black;
+    text-align: center;
 }
