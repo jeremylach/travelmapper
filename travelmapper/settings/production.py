@@ -14,9 +14,9 @@ DEBUG = True
 #AWS_BUCKET_NAME = "nyxlstory"
 
 
-STATICFILES_DIRS = ( 
-    PROJECT_DIR.child("static"), 
-)
+#STATICFILES_DIRS = ( 
+#    PROJECT_DIR.child("static"), 
+#)
 
 DATABASES = {}
 
@@ -33,9 +33,9 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, 'static'),
-#)
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 
 
