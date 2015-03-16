@@ -32,15 +32,18 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = Path(__file__).ancestor(3)
+
 #STATIC_ROOT = 'staticfiles'
 #STATIC_URL = '/static/'
 
 STATIC_ROOT = 'staticfiles'
 
 
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, 'static'),
-#)
+STATICFILES_DIRS = (
+    #os.path.join(BASE_DIR, 'staticfiles'),
+    os.path.join(PROJECT_DIR, "staticfiles"),
+)
 
 
 
