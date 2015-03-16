@@ -37,13 +37,13 @@ PROJECT_DIR = Path(__file__).ancestor(3)
 #STATIC_ROOT = 'staticfiles'
 #STATIC_URL = '/static/'
 
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = '/staticfiles/'
 
 
-STATICFILES_DIRS = (
+#STATICFILES_DIRS = (
     #os.path.join(BASE_DIR, 'staticfiles'),
-    os.path.join(PROJECT_DIR, "staticfiles"),
-)
+#    os.path.join(PROJECT_DIR, "static"),
+#)
 
 
 
