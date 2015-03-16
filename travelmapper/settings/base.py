@@ -145,7 +145,6 @@ STATICFILES_DIRS = (
     #PROJECT_DIR.child("static"),
     os.path.join(PROJECT_DIR, "static"),
     os.path.join(PROJECT_DIR, "static/map"),
-    os.path.join(PROJECT_DIR, "static/js"),
 #    os.path.join(BASE_DIR, 'static'),
     #os.path.join(PROJECT_DIR, "map/static/map")
 )
@@ -156,7 +155,7 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 
-#STATIC_ROOT = PROJECT_DIR.child("static")
+STATIC_ROOT = PROJECT_DIR.child("staticfiles")
 
 #print STATICFILES_DIRS
 
