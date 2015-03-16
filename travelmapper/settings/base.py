@@ -138,7 +138,7 @@ STATICFILES_FINDERS = (
 #PROJECT_DIR = os.path.dirname(__file__)
 #print PROJECT_DIR
 
-STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static'),)
+#STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static'),)
 
 STATICFILES_DIRS = (
     #os.path.join(BASE_DIR, "static"),
