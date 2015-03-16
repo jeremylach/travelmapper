@@ -45,6 +45,12 @@ STATIC_ROOT = 'staticfiles/'
 #    os.path.join(PROJECT_DIR, "static"),
 #)
 
+STATICFILES_DIRS = (
+    #os.path.join(BASE_DIR, "static"),
+    #PROJECT_DIR.child("static"),
+    os.path.join(PROJECT_DIR, "static"),
+)
+
 
 
 ########## HOST CONFIGURATION
