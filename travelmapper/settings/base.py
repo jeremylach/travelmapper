@@ -16,6 +16,7 @@ from os import environ
 from unipath import Path 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+
 PROJECT_DIR = Path(__file__).ancestor(3)
 
 # Quick-start development settings - unsuitable for production
@@ -126,7 +127,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -134,18 +135,28 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-STATICFILES_DIRS = (
+#PROJECT_DIR = os.path.dirname(__file__)
+print PROJECT_DIR
+
+STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static'),)
+
+#STATICFILES_DIRS = (
     #os.path.join(BASE_DIR, "static"),
     #PROJECT_DIR.child("static"),
-    os.path.join(PROJECT_DIR, "static"),
+#    os.path.join(PROJECT_DIR, "static"),
 #    os.path.join(BASE_DIR, 'static'),
-)
+    #os.path.join(PROJECT_DIR, "map/static/map")
+#)
 STATIC_ROOT = PROJECT_DIR.child("staticfiles")
 
 #STATIC_ROOT = '/Developer/django/travelmapper/staticfiles/'
 
-#print STATICFILES_DIRS
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
+
+#STATIC_ROOT = PROJECT_DIR.child("static")
+
+print STATICFILES_DIRS
 
 ######SOCIAL LOGIN######
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'

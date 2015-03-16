@@ -14,6 +14,10 @@ urlpatterns = patterns('',
 
 urlpatterns += map.urls.urlpatterns
 
+#from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+#urlpatterns += staticfiles_urlpatterns()
+
+
 #import django_cron
 #print dir(django_cron)
 #django_cron.autodiscover()
