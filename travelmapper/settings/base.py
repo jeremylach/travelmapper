@@ -136,18 +136,19 @@ STATICFILES_FINDERS = (
 )
 
 #PROJECT_DIR = os.path.dirname(__file__)
-print PROJECT_DIR
+#print PROJECT_DIR
 
 STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static'),)
 
-#STATICFILES_DIRS = (
+STATICFILES_DIRS = (
     #os.path.join(BASE_DIR, "static"),
     #PROJECT_DIR.child("static"),
-#    os.path.join(PROJECT_DIR, "static"),
+    os.path.join(PROJECT_DIR, "static"),
+    os.path.join(PROJECT_DIR, "static/map"),
 #    os.path.join(BASE_DIR, 'static'),
     #os.path.join(PROJECT_DIR, "map/static/map")
-#)
-STATIC_ROOT = PROJECT_DIR.child("staticfiles")
+)
+#STATIC_ROOT = PROJECT_DIR.child("staticfiles")
 
 #STATIC_ROOT = '/Developer/django/travelmapper/staticfiles/'
 
@@ -156,7 +157,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 #STATIC_ROOT = PROJECT_DIR.child("static")
 
-print STATICFILES_DIRS
+#print STATICFILES_DIRS
 
 ######SOCIAL LOGIN######
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
