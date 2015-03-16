@@ -50,6 +50,7 @@ STATICFILES_DIRS = (
     #os.path.join(BASE_DIR, "static"),
     #PROJECT_DIR.child("static"),
     os.path.join(PROJECT_DIR, "static"),
+    os.path.join(PROJECT_DIR, "static/map"),
 )
 
 
