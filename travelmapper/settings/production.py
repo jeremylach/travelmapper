@@ -60,6 +60,9 @@ STATICFILES_DIRS = (
 ALLOWED_HOSTS = [".travelmapper.com", ".herokuapp.com"]
 ########## END HOST CONFIGURATION
 
+INSTAGRAM_CLIENT_ID = '2d4d63d01aa44f80be1dadaa7eefc99f'
+INSTAGRAM_CLIENT_SECRET = '91f4882f75bb4d4b8c3f6e890e3cc677'
+
 #MIDDLEWARE_CLASSES += (
 #    #'django.middleware.cache.UpdateCacheMiddleware',
 #    
