@@ -37,7 +37,7 @@ PROJECT_DIR = Path(__file__).ancestor(3)
 #STATIC_ROOT = 'staticfiles'
 #STATIC_URL = '/static/'
 
-STATIC_ROOT = '/staticfiles/'
+STATIC_ROOT = 'staticfiles/'
 
 
 #STATICFILES_DIRS = (
