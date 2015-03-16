@@ -22,6 +22,7 @@ class MapView(TemplateView):
 
         if 'username' in self.kwargs:
             target_username = self.kwargs['username']
+            context['username'] = target_username
         elif not self.request.user.is_anonymous() and self.request.user.is_authenticated():
             target_username = self.request.user.username           
         else:

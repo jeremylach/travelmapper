@@ -6,7 +6,9 @@
 //console.log(moments);
     </script>
     <button id='zoom-fit'>Zoom to Fit</button>
-    <h1>Showing Moments for {{username}}</h1>
+    {% if username %}
+        <h1>Showing Moments for {{username}}</h1>
+    {% endif %}
 	<div class="map" id="map"></div>
 {% endblock %}
 <!--
