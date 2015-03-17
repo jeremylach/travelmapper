@@ -84,7 +84,8 @@ def process_user_update(update):
     return HttpResponse("Updated!!!")
 
 def requestMediaByUser( user_id, subscription_id ):
-	media, next = api.user_recent_media( 20, 0, user_id)
+    media, next = api.user_recent_media( 20, 0, user_id)
+    print media
 
 
 reactor = subscriptions.SubscriptionsReactor()
@@ -104,10 +105,12 @@ def on_realtime_callback(request):
 
         #return HttpResponse("POSTED!")
 
-        x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
+        
         
         raw_response = request.body.read()
-    
+        print raw_response
+        
+        x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         #try:
         reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
         #except Exception as e:
