@@ -40,9 +40,6 @@ class MapView(TemplateView):
 
         context['moments_data'] = all_user_moment_data
 
-        logger = logging.getLogger('testlogger')
-        logger.info('View triggered!')
-
             
             #photos = []
             #content = ""
@@ -97,7 +94,7 @@ reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_upda
 
 def on_realtime_callback(request):
     logger = logging.getLogger('testlogger')
-    logger.info('View triggered!')
+    logger.info('Callback View triggered!')
 
     #print request.GET
     #print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))

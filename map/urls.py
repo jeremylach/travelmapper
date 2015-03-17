@@ -12,6 +12,6 @@ urlpatterns = patterns('',
         #{'template_name': 'registration/logout.html'},
         {'next_page': '/'},
         name='auth_logout'),
-    url(r'/hook/instagram/', on_realtime_callback, name='oauth_callback')
+    url(r'hook/(.*)$', on_realtime_callback, name='oauth_callback')
 )
 
