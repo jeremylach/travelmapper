@@ -46,15 +46,9 @@ class Command(NoArgsCommand):
                 social_user.save()
                 photos = []
                 content = ""
-                for media in recent_media:
-                    if hasattr(media, "location"):
-                        try:
-                            insta_data = PhotoMoment(insta_id=media.id, user=social_user.user, created=media.created_time, standard_resolution=media.get_standard_resolution_url(), thumbnail=media.get_thumbnail_url(), link=media.link, media_type = media.type, lat=media.location.point.latitude, lng=media.location.point.longitude, name=media.location.name, location_id=media.location.id)
-                            insta_data.save()
-                        except IntegrityError:
-                            print "%s already exists" % media.id
-                            continue
-                    #photos.append('<div style="float:left;">')
+                PhotoMoment.process_recent_media(recent_media, social_user)
+
+                #photos.append('<div style="float:left;">')
                     #if(media.type == 'video'):
                     #    photos.append('<video controls width height="150"><source type="video/mp4" src="%s"/></video>' % (media.get_standard_resolution_url()))
                     #else:

@@ -101,9 +101,17 @@ def on_realtime_callback(request):
 def process_user_update(update):
     print "USER UPDATED!!!!!"
     print update
-    return HttpResponse(update)
 
+    key = update['object']
+    subscription_id = update['subscription_id']    
+    val = update.get('object_id')
 
+    requestMediaByUser( val, subscription_id )
+
+    return HttpResponse("Updated!!!")
+
+def requestMediaByUser( user_id, subscription_id ):
+	media, next = api.user_recent_media( 20, 0, user_id)
 
 #class InstagramAuth():
 #    code = request.GET.get("code")
