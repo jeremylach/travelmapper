@@ -79,13 +79,24 @@ def on_realtime_callback(request):
         return HttpResponse(response)
         #return redirect('index')
     else:
-        x_hub_signature = request.header.get('X-Hub-Signature')
+        x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         print "POSTED!"
         raw_response = request.body.read()
+    
         try:
             reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
-        except subscriptions.SubscriptionVerifyError:
-            return HttpResponse("Signature Mismatch")
+        except Exception as e:
+            print >> sys.stderr, "Got error in reactor processing"
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
+
+#       raw_response = request.body
+#        try:
+#            reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
+#        except subscriptions.SubscriptionVerifyError:
+#            return HttpResponse("Signature Mismatch")
+
+    return HttpResponse("")
 
 def process_user_update(update):
     print "USER UPDATED!!!!!"
