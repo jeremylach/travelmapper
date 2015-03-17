@@ -65,15 +65,16 @@ def logout(request):
     return redirect('index')
 
 
-
 def on_realtime_callback(request):
-    
+    reactor = subscriptions.SubscriptionsReactor()
+    reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
+
     mode = request.GET.get("hub.mode")
     challenge = request.GET.get("hub.challenge")
     verify_token = request.GET.get("hub.verify_token")
     if challenge:
         print challenge
-        return challenge
+        #return redirect('index')
     else:
         x_hub_signature = request.header.get('X-Hub-Signature')
         raw_response = request.body.read()
@@ -85,8 +86,7 @@ def on_realtime_callback(request):
 def process_user_update(update):
     print(update)
 
-reactor = subscriptions.SubscriptionsReactor()
-reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
+
 
 #class InstagramAuth():
 #    code = request.GET.get("code")
