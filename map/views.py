@@ -4,6 +4,7 @@ from .models import *
 from instagram import client, subscriptions
 from django.contrib.auth import logout as auth_logout
 from instagram import client, subscriptions
+from django.conf import settings
 
 class MapView(TemplateView):
     template_name = "map/index.html"
@@ -24,7 +25,7 @@ class MapView(TemplateView):
             target_username = self.kwargs['username']
             context['username'] = target_username
         elif not self.request.user.is_anonymous() and self.request.user.is_authenticated():
-            target_username = self.request.user.username           
+            target_username = self.request.user.username
         else:
             context['moments_data'] = []
             return context
@@ -62,6 +63,29 @@ class MapView(TemplateView):
 def logout(request):
     auth_logout(request)
     return redirect('index')
+
+
+
+def on_realtime_callback(request):
+    print "CALLBACK!!!"
+    mode = request.GET.get("hub.mode")
+    challenge = request.GET.get("hub.challenge")
+    verify_token = request.GET.get("hub.verify_token")
+    if challenge: 
+        return challenge
+    else:
+        x_hub_signature = request.header.get('X-Hub-Signature')
+        raw_response = request.body.read()
+        try:
+            reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
+        except subscriptions.SubscriptionVerifyError:
+            print("Signature mismatch")
+
+def process_user_update(update):
+    print(update)
+
+reactor = subscriptions.SubscriptionsReactor()
+reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
 
 #class InstagramAuth():
 #    code = request.GET.get("code")

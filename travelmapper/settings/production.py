@@ -40,6 +40,7 @@ PROJECT_DIR = Path(__file__).ancestor(3)
 
 STATIC_ROOT = 'staticfiles'
 
+SITE_URL = "http://travelmoments.herokuapp.com/"
 
 #STATICFILES_DIRS = (
     #os.path.join(BASE_DIR, 'staticfiles'),
@@ -57,7 +58,7 @@ STATICFILES_DIRS = (
 
 ########## HOST CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-ALLOWED_HOSTS = [".travelmapper.com", ".herokuapp.com"]
+ALLOWED_HOSTS = [".travelmoments.com", ".herokuapp.com"]
 ########## END HOST CONFIGURATION
 
 INSTAGRAM_CLIENT_ID = '2d4d63d01aa44f80be1dadaa7eefc99f'

@@ -7,10 +7,10 @@ urlpatterns = patterns('',
     # url(r'^$', 'travelmapper.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),    
-    url(r'^', include('map.urls')),
+    
     
     url(r'', include('social_auth.urls')),
-
+    url(r'^', include('map.urls')),
 )
 
 #urlpatterns += map.urls.urlpatterns

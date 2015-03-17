@@ -36,6 +36,7 @@ TEMPLATE_DIRS = (
     PROJECT_DIR.child("templates"), 
 )
 
+SITE_URL = "http://127.0.0.1:8000/"
 #print PROJECT_DIR
 
 # Application definition
