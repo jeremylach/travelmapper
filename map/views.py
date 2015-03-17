@@ -108,12 +108,12 @@ def on_realtime_callback(request):
         
         raw_response = request.body.read()
     
-        try:
-            reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
-        except Exception as e:
-            print >> sys.stderr, "Got error in reactor processing"
-            exc_type, exc_value, exc_traceback = sys.exc_info()
-            print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
+        #try:
+        reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
+        #except Exception as e:
+         #   print >> sys.stderr, "Got error in reactor processing"
+          #  exc_type, exc_value, exc_traceback = sys.exc_info()
+           # print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
 
 #       raw_response = request.body
 #        try:
