@@ -92,7 +92,7 @@ def requestMediaByUser( user_id, subscription_id ):
 reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
 
-def on_realtime_callback(request):
+def on_realtime_callback(request, subscriber_django_id):
     '''
     Handles the realtime API callbacks
     If request is a GET then we assume that the request is an echo request
