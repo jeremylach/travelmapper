@@ -67,11 +67,11 @@ def logout(request):
 
 
 def on_realtime_callback(request):
-    print "CALLBACK!!!"
     mode = request.GET.get("hub.mode")
     challenge = request.GET.get("hub.challenge")
     verify_token = request.GET.get("hub.verify_token")
-    if challenge: 
+    if challenge:
+        print challenge
         return challenge
     else:
         x_hub_signature = request.header.get('X-Hub-Signature')
