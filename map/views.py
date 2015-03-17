@@ -73,7 +73,8 @@ def on_realtime_callback(request):
     challenge = request.GET.get("hub.challenge")
     verify_token = request.GET.get("hub.verify_token")
     if challenge:
-        print challenge
+        response = challenge
+        return HttpResponse(response)
         #return redirect('index')
     else:
         x_hub_signature = request.header.get('X-Hub-Signature')
