@@ -66,6 +66,22 @@ def logout(request):
     return redirect('index')
 
 
+def process_user_update(update):
+    print "USER UPDATED!!!!!"
+    print update
+
+    key = update['object']
+    subscription_id = update['subscription_id']    
+    val = update.get('object_id')
+
+    requestMediaByUser( val, subscription_id )
+
+    return HttpResponse("Updated!!!")
+
+def requestMediaByUser( user_id, subscription_id ):
+	media, next = api.user_recent_media( 20, 0, user_id)
+
+
 reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
 
@@ -98,20 +114,7 @@ def on_realtime_callback(request):
 
     return HttpResponse("")
 
-def process_user_update(update):
-    print "USER UPDATED!!!!!"
-    print update
 
-    key = update['object']
-    subscription_id = update['subscription_id']    
-    val = update.get('object_id')
-
-    requestMediaByUser( val, subscription_id )
-
-    return HttpResponse("Updated!!!")
-
-def requestMediaByUser( user_id, subscription_id ):
-	media, next = api.user_recent_media( 20, 0, user_id)
 
 #class InstagramAuth():
 #    code = request.GET.get("code")
