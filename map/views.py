@@ -6,6 +6,7 @@ from django.contrib.auth import logout as auth_logout
 from instagram import client, subscriptions
 from django.conf import settings
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 import logging
 import traceback
@@ -92,6 +93,7 @@ def requestMediaByUser( user_id, subscription_id ):
 reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
 
+@method_decorator(csrf_exempt)
 def on_realtime_callback(request, subscriber_django_id):
     '''
     Handles the realtime API callbacks
@@ -101,6 +103,7 @@ def on_realtime_callback(request, subscriber_django_id):
 
     logger = logging.getLogger('testlogger')
     logger.info('Callback View triggered!')
+
     if request.method == "POST":
         raw_response = request.body.read()
 
