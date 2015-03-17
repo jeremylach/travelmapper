@@ -86,7 +86,7 @@ reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
 
 def on_realtime_callback(request):
-#    print request.POST
+    print request.GET
     mode = request.GET.get("hub.mode")
     challenge = request.GET.get("hub.challenge")
     verify_token = request.GET.get("hub.verify_token")
@@ -96,7 +96,7 @@ def on_realtime_callback(request):
         #return redirect('index')
     else:
 
-        return HttpResponse("POSTED!")
+        #return HttpResponse("POSTED!")
 
         x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         
