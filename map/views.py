@@ -39,6 +39,10 @@ class MapView(TemplateView):
         all_user_moment_data = PhotoMoment.get_moments_json(target_username)
 
         context['moments_data'] = all_user_moment_data
+
+        logger = logging.getLogger('testlogger')
+        logger.info('View triggered!')
+
             
             #photos = []
             #content = ""
