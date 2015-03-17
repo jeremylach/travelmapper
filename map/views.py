@@ -66,9 +66,10 @@ def logout(request):
     return redirect('index')
 
 
+reactor = subscriptions.SubscriptionsReactor()
+reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
+
 def on_realtime_callback(request):
-    reactor = subscriptions.SubscriptionsReactor()
-    reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
 
     mode = request.GET.get("hub.mode")
     challenge = request.GET.get("hub.challenge")
@@ -86,7 +87,9 @@ def on_realtime_callback(request):
             return HttpResponse("Signature Mismatch")
 
 def process_user_update(update):
+    print "USER UPDATED!!!!!"
     print update
+    return HttpResponse(update)
 
 
 
