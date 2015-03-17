@@ -92,6 +92,9 @@ reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
 
 def on_realtime_callback(request):
+    logger = logging.getLogger('testlogger')
+    logger.info('View triggered!')
+
     #print request.GET
     #print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
     mode = request.GET.get("hub.mode")
@@ -108,9 +111,17 @@ def on_realtime_callback(request):
         
         
         raw_response = request.body.read()
-        print raw_response
+
+        
+        logger.info('Got the Post!')
+        logger.info(raw_response)
+#        print raw_response
         
         x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
+
+        logger.info('Got the x_hub_signature!')
+        logger.info(x_hub_signature)
+
         #try:
         reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
         #except Exception as e:

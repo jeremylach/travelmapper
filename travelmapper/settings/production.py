@@ -64,6 +64,39 @@ ALLOWED_HOSTS = [".travelmoments.com", ".herokuapp.com"]
 INSTAGRAM_CLIENT_ID = '2d4d63d01aa44f80be1dadaa7eefc99f'
 INSTAGRAM_CLIENT_SECRET = '91f4882f75bb4d4b8c3f6e890e3cc677'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
+                       'pathname=%(pathname)s lineno=%(lineno)s ' +
+                       'funcname=%(funcName)s %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'testlogger': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
+}
+
 #MIDDLEWARE_CLASSES += (
 #    #'django.middleware.cache.UpdateCacheMiddleware',
 #    
