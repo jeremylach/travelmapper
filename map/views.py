@@ -7,6 +7,11 @@ from instagram import client, subscriptions
 from django.conf import settings
 from django.http import HttpResponse
 
+
+import traceback
+import os
+import sys
+
 class MapView(TemplateView):
     template_name = "map/index.html"
 
@@ -86,7 +91,8 @@ reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_update)
 
 def on_realtime_callback(request):
-    print request.GET
+    #print request.GET
+    print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
     mode = request.GET.get("hub.mode")
     challenge = request.GET.get("hub.challenge")
     verify_token = request.GET.get("hub.verify_token")
