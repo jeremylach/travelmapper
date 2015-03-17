@@ -92,7 +92,7 @@ reactor.register_callback(subscriptions.SubscriptionType.USER, process_user_upda
 
 def on_realtime_callback(request):
     #print request.GET
-    print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
+    #print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
     mode = request.GET.get("hub.mode")
     challenge = request.GET.get("hub.challenge")
     verify_token = request.GET.get("hub.verify_token")
@@ -114,6 +114,7 @@ def on_realtime_callback(request):
          #   print >> sys.stderr, "Got error in reactor processing"
           #  exc_type, exc_value, exc_traceback = sys.exc_info()
            # print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
+
 
 #       raw_response = request.body
 #        try:
