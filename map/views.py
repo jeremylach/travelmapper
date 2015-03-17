@@ -30,6 +30,9 @@ class MapView(TemplateView):
         context = super(MapView, self).get_context_data(**kwargs)
         #context['moments_data'] = PhotoMoment.get_moments_json()
 
+        logger = logging.getLogger('HOMEPAGE')
+        logger.info(update)
+
         if 'username' in self.kwargs:
             target_username = self.kwargs['username']
             context['username'] = target_username
@@ -76,8 +79,11 @@ def logout(request):
 
 
 def process_user_update(update):
-    print "USER UPDATED!!!!!"
-    print update
+#    print "USER UPDATED!!!!!"
+#    print update
+
+    logger = logging.getLogger('USER UPDATED!!!')
+    logger.info(update)
 
     key = update['object']
     subscription_id = update['subscription_id']    
