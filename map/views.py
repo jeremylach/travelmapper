@@ -5,6 +5,7 @@ from instagram import client, subscriptions
 from django.contrib.auth import logout as auth_logout
 from instagram import client, subscriptions
 from django.conf import settings
+from django.http import HttpResponse
 
 class MapView(TemplateView):
     template_name = "map/index.html"
@@ -85,7 +86,7 @@ def on_realtime_callback(request):
             print("Signature mismatch")
 
 def process_user_update(update):
-    print(update)
+    print update
 
 
 
