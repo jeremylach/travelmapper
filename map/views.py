@@ -114,9 +114,9 @@ def on_realtime_callback(request, subscriber_django_id):
 
     if request.method == "POST":
         logger.info('Got the Post!')
-        raw_response = request.body.read()
+        #raw_response = request.body.read()
 
-        logger.info(raw_response)
+        logger.info(request.body)
 #        print raw_response
         
         x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
