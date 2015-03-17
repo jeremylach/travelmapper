@@ -107,10 +107,9 @@ def on_realtime_callback(request, subscriber_django_id):
     logger.info('Callback View triggered!')
 
     if request.method == "POST":
+        logger.info('Got the Post!')
         raw_response = request.body.read()
 
-        
-        logger.info('Got the Post!')
         logger.info(raw_response)
 #        print raw_response
         
@@ -118,9 +117,9 @@ def on_realtime_callback(request, subscriber_django_id):
 
         logger.info('Got the x_hub_signature!')
         logger.info(x_hub_signature)
-        raw_response = request.body.read()
-        logger.info('Got the Post!')
-        logger.info(raw_response)
+        #raw_response = request.body.read()
+        #logger.info('Got the Post!')
+        #logger.info(raw_response)
 
         #try:
         reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
@@ -135,7 +134,7 @@ def on_realtime_callback(request, subscriber_django_id):
            # print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
 
     else:
-    
+        logger.info('Got the GET!')
         mode = request.GET.get("hub.mode")
         challenge = request.GET.get("hub.challenge")
         verify_token = request.GET.get("hub.verify_token")
