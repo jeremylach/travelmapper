@@ -7,6 +7,8 @@ from instagram import client, subscriptions
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 
 import logging
 import traceback
