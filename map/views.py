@@ -83,7 +83,7 @@ def on_realtime_callback(request):
         try:
             reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
         except subscriptions.SubscriptionVerifyError:
-            print("Signature mismatch")
+            return HttpResponse("Signature Mismatch")
 
 def process_user_update(update):
     print update
