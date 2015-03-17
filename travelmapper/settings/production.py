@@ -2,7 +2,7 @@
 
 from base import *
 
-DEBUG = False
+DEBUG = True
 
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
@@ -59,6 +59,7 @@ STATICFILES_DIRS = (
 import logging
 logger = logging.getLogger('testlogger')
 logger.info('Test logging!')
+import sys
 
 ########## HOST CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
@@ -90,7 +91,8 @@ LOGGING = {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'simple',
+            'stream': sys.stdout
         }
     },
     'loggers': {
