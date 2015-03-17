@@ -67,6 +67,7 @@ def logout(request):
 
 
 def on_realtime_callback(request):
+    
     mode = request.GET.get("hub.mode")
     challenge = request.GET.get("hub.challenge")
     verify_token = request.GET.get("hub.verify_token")
