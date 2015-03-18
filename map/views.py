@@ -83,19 +83,21 @@ def process_user_update(update):
 #    print update
 
     logger = logging.getLogger('testlogger')
+    logger.info("process user update")
     logger.info(update)
 
     key = update['object']
     subscription_id = update['subscription_id']    
     val = update.get('object_id')
 
-    requestMediaByUser( val, subscription_id )
+    recent_media = requestMediaByUser( val, subscription_id )
+    logger.info(recent_media)
 
     return HttpResponse("Updated!!!")
 
 def requestMediaByUser( user_id, subscription_id ):
     media, next = api.user_recent_media( 20, 0, user_id)
-    print media
+    return media
 
 
 reactor = subscriptions.SubscriptionsReactor()
@@ -114,7 +116,7 @@ def on_realtime_callback(request, subscriber_django_id):
 
     if request.method == "POST":
         logger.info('Got the Post!')
-        #raw_response = request.body.read()
+        raw_response = request.body
 
         logger.info(request.body)
 #        print raw_response
@@ -123,21 +125,14 @@ def on_realtime_callback(request, subscriber_django_id):
 
         logger.info('Got the x_hub_signature!')
         logger.info(x_hub_signature)
-        #raw_response = request.body.read()
-        #logger.info('Got the Post!')
-        #logger.info(raw_response)
-
-        #try:
-        reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
-
-                
+       
+        try:
+            reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
         
-#        print raw_response
-        
-        #except Exception as e:
-         #   print >> sys.stderr, "Got error in reactor processing"
-          #  exc_type, exc_value, exc_traceback = sys.exc_info()
-           # print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
+        except Exception as e:
+            logger.info("Got error in reactor processing")
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            logger.info(repr(traceback.format_exception(exc_type, exc_value,exc_traceback)))
 
     else:
         logger.info('Got the GET!')
