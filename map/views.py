@@ -97,10 +97,14 @@ def process_user_update(update):
     return HttpResponse("Updated!!!")
 
 def requestMediaByUser( user_id, subscription_id ):
+    logger = logging.getLogger('testlogger')
+
     admin_user = UserSocialAuth.objects.get(user__username="admin")
     access_token = admin_user.extra_data['access_token']    
     api = client.InstagramAPI(access_token=access_token, client_id=settings.INSTAGRAM_CLIENT_ID, client_secret=settings.INSTAGRAM_CLIENT_SECRET)
     media, next = api.user_recent_media( 20, 0, user_id)
+    logger.info("api response")
+    logger.info(media)
     return media
 
 
