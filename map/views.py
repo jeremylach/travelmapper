@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .models import *
+from social_auth.db.django_models import *
 from instagram import client, subscriptions
 from django.contrib.auth import logout as auth_logout
 from instagram import client, subscriptions
