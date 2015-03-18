@@ -96,6 +96,9 @@ def process_user_update(update):
     return HttpResponse("Updated!!!")
 
 def requestMediaByUser( user_id, subscription_id ):
+    admin_user = UserSocialAuth.objects.get(user__username="admin")
+    access_token = admin_user.extra_data['access_token']    
+    api = client.InstagramAPI(access_token=access_token, client_id=settings.INSTAGRAM_CLIENT_ID, client_secret=settings.INSTAGRAM_CLIENT_SECRET)
     media, next = api.user_recent_media( 20, 0, user_id)
     return media
 
@@ -144,27 +147,4 @@ def on_realtime_callback(request, subscriber_django_id):
             return HttpResponse(response)
         #return redirect('index')
 
-#       raw_response = request.body
-#        try:
-#            reactor.process(settings.INSTAGRAM_CLIENT_SECRET, raw_response, x_hub_signature)
-#        except subscriptions.SubscriptionVerifyError:
-#            return HttpResponse("Signature Mismatch")
-
     return HttpResponse("")
-
-
-
-#class InstagramAuth():
-#    code = request.GET.get("code")
-#    if not code:
-#        return 'Missing code'
-#    try:
-#        access_token, user_info = unauthenticated_api.exchange_code_for_access_token(code)
-#        if not access_token:
-#            return 'Could not get access token'
-#        api = client.InstagramAPI(access_token=access_token)
-#        request.session['access_token'] = access_token
-#        print ("access token="+access_token)
-#    except Exception as e:
-#        print(e)
-#    return get_nav()
