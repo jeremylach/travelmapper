@@ -4,7 +4,6 @@ from .models import *
 from social_auth.db.django_models import *
 from instagram import client, subscriptions
 from django.contrib.auth import logout as auth_logout
-from instagram import client, subscriptions
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -91,23 +90,25 @@ def process_user_update(update):
     subscription_id = update['subscription_id']    
     val = update.get('object_id')
 
-    recent_media = requestMediaByUser( val, subscription_id )
+    recent_media, social_user = requestMediaByUser( val, subscription_id )
     logger.info(recent_media)
-
+    
+    PhotoMoment.process_recent_media(recent_media, social_user)
+    
     return HttpResponse("Updated!!!")
 
 def requestMediaByUser( user_id, subscription_id ):
     logger = logging.getLogger('testlogger')
 
-    admin_user = UserSocialAuth.objects.get(user__username="admin")
-    access_token = admin_user.extra_data['access_token']
+    social_user = UserSocialAuth.objects.get(uid=user_id)
+    access_token = social_user.extra_data['access_token']
     logger.info("user id")
     logger.info(user_id)
     api = client.InstagramAPI(access_token=access_token, client_id=settings.INSTAGRAM_CLIENT_ID, client_secret=settings.INSTAGRAM_CLIENT_SECRET)
     media, next = api.user_recent_media(count=20, user_id=user_id)
     logger.info("api response")
     logger.info(media)
-    return media
+    return media, social_user
 
 
 reactor = subscriptions.SubscriptionsReactor()
