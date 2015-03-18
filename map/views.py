@@ -102,12 +102,12 @@ def requestMediaByUser( user_id, subscription_id ):
 
     social_user = UserSocialAuth.objects.get(uid=user_id)
     access_token = social_user.extra_data['access_token']
-    logger.info("user id")
-    logger.info(user_id)
+    #logger.info("user id")
+    #logger.info(user_id)
     api = client.InstagramAPI(access_token=access_token, client_id=settings.INSTAGRAM_CLIENT_ID, client_secret=settings.INSTAGRAM_CLIENT_SECRET)
     media, next = api.user_recent_media(count=20, user_id=user_id)
-    logger.info("api response")
-    logger.info(media)
+    #logger.info("api response")
+    #logger.info(media)
     return media, social_user
 
 

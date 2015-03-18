@@ -11,13 +11,17 @@
     {% endif %}
 	<div class="map" id="map"></div>
 {% endblock %}
+
 <!--
 1. authenticate w/instagram - DONE
     a. Create user to match - User model - YAGNE
 2. fetch recent photos - DONE
 3. store them in db - Photo model - DONE
 4. Load map with user's photos. - DONE
-5. Fetch recent photos once next_max_id is super old...
+5. Fetch recent photos once next_max_id is super old... - DONE (realtime API)
+
+***http://blog.pamelafox.org/2012/04/converting-addresses-to-timezones-in.html
+6. Store created_time with local timezone based on where the photo was taken.
 
 Cool stuff:
 -Manually add photos by clicking the map and uploading a photo
