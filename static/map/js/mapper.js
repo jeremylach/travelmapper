@@ -55,7 +55,8 @@ function generate_map_marker_popup(moment) {
     
     var output = "<div class='popup'>";
         if (moment.fields.media_type == "video") {
-            output += '<video width="480" height="480" controls><source src="'+moment.fields.standard_resolution+'" type="video/mp4"/></video>'
+            //console.log("video!"); console.log(moment.pk);
+            output += '<video width="150" height="150" controls><source src="'+moment.fields.standard_resolution+'" type="video/mp4"/></video>'
         }
         else {
             output += "<img src='"+moment.fields.thumbnail+"' class='' />";
