@@ -54,8 +54,12 @@ function mapper() {
 function generate_map_marker_popup(moment) {
     
     var output = "<div class='popup'>";
-        
-        output += "<img src='"+moment.fields.thumbnail+"' class='' />";
+        if (moment.fields.media_type == "video") {
+            output += '<video width="480" height="480" controls><source src="'+moment.fields.standard_resolution+'" type="video/mp4"/></video>'
+        }
+        else {
+            output += "<img src='"+moment.fields.thumbnail+"' class='' />";
+        }
         
         output += "<div class=''>";
             output += "<div class='details'>";
