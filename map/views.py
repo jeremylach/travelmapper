@@ -77,7 +77,7 @@ def logout(request):
     auth_logout(request)
     return redirect('index')
 
-
+@method_decorator(csrf_exempt)
 def process_user_update(update):
 #    print "USER UPDATED!!!!!"
 #    print update
@@ -97,6 +97,7 @@ def process_user_update(update):
     
     return HttpResponse("Updated!!!")
 
+@method_decorator(csrf_exempt)
 def requestMediaByUser( user_id, subscription_id ):
     logger = logging.getLogger('testlogger')
 
