@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 #from social_auth.models import AuthSocialUser
 from django.core import serializers
+from django.db import IntegrityError
+
 
 #class MapUser(AbstractUser):
 #    userid = models.AutoField(primary_key=True)
