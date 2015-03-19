@@ -15,9 +15,12 @@ import traceback
 import os
 import sys
 
-@method_decorator(csrf_exempt)
 class MapView(TemplateView):
     template_name = "map/index.html"
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(MapView, self).dispatch(request, *args, **kwargs)
 
     #CONFIG = {
     #    'client_id': '5da02e2d2c14451593b35812ee2282e9',
@@ -78,7 +81,6 @@ def logout(request):
     auth_logout(request)
     return redirect('index')
 
-@method_decorator(csrf_exempt)
 def process_user_update(update):
 #    print "USER UPDATED!!!!!"
 #    print update
@@ -98,7 +100,6 @@ def process_user_update(update):
     
     return HttpResponse("Updated!!!")
 
-@method_decorator(csrf_exempt)
 def requestMediaByUser( user_id, subscription_id ):
     logger = logging.getLogger('testlogger')
 
