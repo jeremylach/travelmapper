@@ -1,6 +1,6 @@
 $(document).ready(function() {
     if($(".map").length > 0) {
-        mapper();
+        setTimeout(function(){ mapper(); },200);
     }
     $('.close_modal').bind('click', function(event){
     	event.preventDefault();
