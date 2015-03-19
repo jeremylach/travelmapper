@@ -15,6 +15,7 @@ import traceback
 import os
 import sys
 
+@method_decorator(csrf_exempt)
 class MapView(TemplateView):
     template_name = "map/index.html"
 
