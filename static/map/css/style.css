@@ -25,3 +25,7 @@ a {
     color: black;
     text-align: center;
 }
+
+.date-filter {
+    margin: 50px;
+}

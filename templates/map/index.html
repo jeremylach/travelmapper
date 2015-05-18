@@ -8,11 +8,13 @@
     <button id='zoom-fit'>Zoom to Fit</button>
     {% if username %}
         <h1>Showing Moments for: {{username}}</h1>
+        <div class='date-filter'></div>
     {% endif %}
+    
 	<div class="map" id="map"></div>
 {% endblock %}
 
-<!--
+<!-- TODO
 1. authenticate w/instagram - DONE
     a. Create user to match - User model - YAGNE
 2. fetch recent photos - DONE
@@ -28,4 +30,5 @@ Cool stuff:
 -Manually add photos by clicking the map and uploading a photo
 -Timeline with graph of photo quantity x date.
 -Date slider to filter photos
+-Slideshow
 -->

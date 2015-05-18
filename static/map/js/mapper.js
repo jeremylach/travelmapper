@@ -1,5 +1,18 @@
 //var moments = [{"location":{"lat":"43.5081323","lng":"16.440193499999964"}},{"location":{"lat":"43.5081323","lng":"16.440193499999964"}},{"location":{"lat":"43.5081323","lng":"16.440193499999964"}},{"location":{"lat":"25.7616798","lng":"-80.19179020000001"}},{"location":{"lat":"14.613333","lng":"-90.535278"}}];
 var map = null;
+var min_filter_date = null;
+var max_filter_date = null;
+
+if(moments !== undefined && moments.length > 0) {
+    var min = new Date(moments[moments.length - 1].fields.created);
+    var max = new Date(moments[0].fields.created);
+
+    var min_filter_date = new Date(min.toDateString());
+    var max_filter_date = new Date(max.toDateString());
+    //var min_filter_unix = min_filter_date.getTime() / 1000;
+    //var max_filter_unix = max_filter_date.getTime() / 1000;
+}
+
 function mapper() {
 
     // create a map in the "map" div, set the view to the USA.
@@ -131,9 +144,14 @@ $(window).on('draw_markers',function(event) {
         if(moments !== undefined && moments.length > 0 && map !== undefined) {
 
             $(moments).each(function() {
+                var this_moment_date = new Date(this.fields.created);
+                this_moment_date = new Date(this_moment_date.toDateString());
+                window.console.log(min_filter_date);
+                window.console.log(this_moment_date >= min_filter_date);
+                window.console.log(min_filter_date);
                 //window.console.log(this);
-                //window.console.log(this);
-                if(this.fields.lat !== null) {
+                //make sure the moment's created date is between the current date range in view
+                if(this.fields.lat !== null && this_moment_date >= min_filter_date && this_moment_date <= max_filter_date) {
                     //var the_icon = map.event_icon;
 
                     /*if(this.sold_out) {
@@ -180,4 +198,43 @@ $(document).ready(function() {
     $("#zoom-fit").click(function() {
         zoom_to_fit();
     });
+
+    if(moments !== undefined && moments.length > 0) {
+        
+        //var min = new Date(moments[moments.length - 1].fields.created);
+        //var max = new Date(moments[0].fields.created);
+
+        //var min_date = new Date(min.toDateString());
+        //var max_date = new Date(max.toDateString());
+//console.log(new Date(min));        
+//console.log(new Date(max).getTime());
+
+        $(".date-filter").dateRangeSlider({
+            bounds:{
+                min: min_filter_date,
+                max: max_filter_date
+            },
+            defaultValues:{
+                min: min_filter_date,
+                max: max_filter_date
+            },
+            step:{
+                days: 1
+            }
+        });
+
+        $(".date-filter").bind("valuesChanged", function(e, data){
+            //console.log("Values just changed. min: " + data.values.min + " max: " + data.values.max);
+            //console.log(data.values.min.getTime() / 10000);
+            min_filter_date = data.values.min;//.getTime() / 1000;
+            max_filter_date = data.values.max;//.getTime() / 1000;
+
+            console.log(min_filter_date);
+            console.log(max_filter_date);
+
+            $(window).trigger("draw_markers");
+        });
+
+    }
+//dateRangeSlider("bounds", new Date(2012, 0, 1), new Date(2012, 0, 31));
 });
