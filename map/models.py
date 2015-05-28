@@ -4,7 +4,7 @@ from django.conf import settings
 #from social_auth.models import AuthSocialUser
 from django.core import serializers
 from django.db import IntegrityError
-
+import json
 
 #class MapUser(AbstractUser):
 #    userid = models.AutoField(primary_key=True)
@@ -33,6 +33,22 @@ from django.db import IntegrityError
 #    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
 #    next_max_id = models.FloatField(default=0)
 
+class Tag(models.Model):
+    name = models.TextField(max_length=100, unique=True)
+
+    @staticmethod
+    def get_tags_json():
+        tags = Tag.objects.all()
+        tags_json = []
+        if tags:
+            for t in tags:
+                tags_json.append({"value":t.id, "label": t.name})
+
+        return json.dumps(tags_json)
+
+    def __unicode__(self):
+        return self.name
+
 class PhotoMoment(models.Model):
     insta_id = models.CharField(max_length=200, unique=True)
     created = models.DateTimeField('date published')
@@ -40,6 +56,8 @@ class PhotoMoment(models.Model):
     lng = models.FloatField()
     name = models.CharField(max_length=200, blank=True)
     location_id = models.CharField(max_length=200, blank=True)
+    caption = models.TextField(blank=True)
+    tags = models.ManyToManyField(Tag)
     
     #location = models.ForeignKey(Location) #has insta_id, lat, lng, name
 
@@ -72,7 +90,17 @@ class PhotoMoment(models.Model):
             if hasattr(media, "location"):
                 try:
                     insta_data = PhotoMoment(insta_id=media.id, user=social_user.user, created=media.created_time, standard_resolution=media.get_standard_resolution_url(), thumbnail=media.get_thumbnail_url(), link=media.link, media_type = media.type, lat=media.location.point.latitude, lng=media.location.point.longitude, name=media.location.name, location_id=media.location.id)
+                    if media.caption:
+                        insta_data.caption = media.caption.text
                     insta_data.save()
+
+                    if hasattr(media, "tags"):
+                        #print media.tags
+                        for tag in media.tags:
+                            tag_text = tag.name
+                            t, created = Tag.objects.get_or_create(name=tag_text)
+                            insta_data.tags.add(t)
+
                 except IntegrityError:
                     print "%s already exists!" % media.id
                     continue

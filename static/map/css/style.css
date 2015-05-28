@@ -24,8 +24,24 @@ a {
 .popup {
     color: black;
     text-align: center;
+    font-size: 10px;
 }
-
+.popup .date {
+    
+}
+.popup .caption {
+    font-size: 12px;
+    margin: 5px auto;
+}
+.popup .name {
+    /*margin: 5px auto;*/
+}
+.popup .details {
+    /*margin-bottom : 5px;*/
+}
 .date-filter {
     margin: 50px;
+}
+.tag-filter {
+    margin-left: 50px;
 }

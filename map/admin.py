@@ -7,3 +7,8 @@ class PhotoMomentAdmin(admin.ModelAdmin):
 
 admin.site.register(PhotoMoment, PhotoMomentAdmin)
 
+class TagAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Tag,TagAdmin)
+

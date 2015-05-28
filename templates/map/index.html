@@ -3,12 +3,15 @@
 
     <script>
         var moments = {{ moments_data|safe }};
+        var tags = {{ tags|safe }};
 //console.log(moments);
     </script>
     <button id='zoom-fit'>Zoom to Fit</button>
     {% if username %}
         <h1>Showing Moments for: {{username}}</h1>
         <div class='date-filter'></div>
+        <input class='tag-filter' />
+        <button class='tag-filter-submit'>Filter</button>
     {% endif %}
     
 	<div class="map" id="map"></div>

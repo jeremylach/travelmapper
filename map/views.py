@@ -50,6 +50,8 @@ class MapView(TemplateView):
 
         context['moments_data'] = all_user_moment_data
 
+        context['tags'] = Tag.get_tags_json()
+
             
             #photos = []
             #content = ""

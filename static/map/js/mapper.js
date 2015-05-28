@@ -2,6 +2,7 @@
 var map = null;
 var min_filter_date = null;
 var max_filter_date = null;
+var tag_filter = "";
 
 if(moments !== undefined && moments.length > 0) {
     var min = new Date(moments[moments.length - 1].fields.created);
@@ -79,8 +80,12 @@ function generate_map_marker_popup(moment) {
             output += "<div class='details'>";
                 output += "<div class='date'>" + dateToYMD(new Date(moment.fields.created)) + "</div>";
                 if (moment.fields.name !=='') {                
-                    output += "<h3 class='name'>" + moment.fields.name + "</h3>";
+                    output += "<div class='name'>" + moment.fields.name + "</div>";
+                }                
+                if (moment.fields.caption !=='') {                
+                    output += "<div class='caption'>" + moment.fields.caption + "</div>";
                 }
+                
             output += "</div>";
             output += "<div class='popup-actions'>";
                 if(moment.link !== null) {
@@ -127,6 +132,25 @@ function dateToYMD(date) {
     return date.toLocaleString();
 }
 
+//Returns true if the given moment_obj has the global tag_filter contained in its tag list
+function tag_test(moment_obj) {
+    
+    if(tag_filter == "") {
+        return true;
+    }
+//console.log(moment_obj.fields.tags);
+//console.log(tag_filter);
+    if($.inArray(parseInt(tag_filter), moment_obj.fields.tags) !== -1) {
+
+    //console.log("FOUND: ");
+    //console.log(moment_obj);
+        return true;
+    }
+
+    return false;
+    //return true;
+}
+
 //Adds markers to map from moments
 $(window).on('draw_markers',function(event) {
     if(map !== null) {
@@ -151,7 +175,7 @@ $(window).on('draw_markers',function(event) {
                 window.console.log(min_filter_date);
                 //window.console.log(this);
                 //make sure the moment's created date is between the current date range in view
-                if(this.fields.lat !== null && this_moment_date >= min_filter_date && this_moment_date <= max_filter_date) {
+                if(this.fields.lat !== null && this_moment_date >= min_filter_date && this_moment_date <= max_filter_date && tag_test(this)) {
                     //var the_icon = map.event_icon;
 
                     /*if(this.sold_out) {
@@ -195,8 +219,21 @@ function zoom_to_fit() {
     map.fitBounds(map.markers_cluster.getBounds());
 }
 $(document).ready(function() {
+
+    $( ".tag-filter" ).autocomplete({
+      source: tags
+    });
+
     $("#zoom-fit").click(function() {
         zoom_to_fit();
+    });
+
+    $(".tag-filter-submit").click(function() {
+        var tag = $(".tag-filter").val();
+        if (tag !== "") {
+            tag_filter = tag;
+            $(window).trigger("draw_markers");
+        }
     });
 
     if(moments !== undefined && moments.length > 0) {
@@ -234,7 +271,6 @@ $(document).ready(function() {
 
             $(window).trigger("draw_markers");
         });
-
     }
 //dateRangeSlider("bounds", new Date(2012, 0, 1), new Date(2012, 0, 31));
 });
