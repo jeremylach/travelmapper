@@ -220,6 +220,9 @@ function zoom_to_fit() {
 }
 $(document).ready(function() {
 
+/////////
+    //TODO: Make sure only tags for the current user and tags from photos within date range appear...
+////////
     $( ".tag-filter" ).autocomplete({
       source: tags
     });
@@ -229,7 +232,12 @@ $(document).ready(function() {
     });
 
     $(".tag-filter-submit").click(function() {
-        var tag_filter = $(".tag-filter").val();
+        tag_filter = $(".tag-filter").val();
+        $(window).trigger("draw_markers");
+    });
+    $(".tag-filter-clear").click(function() {
+        tag_filter = "";
+        $(".tag-filter").val(tag_filter);
         $(window).trigger("draw_markers");
     });
 
