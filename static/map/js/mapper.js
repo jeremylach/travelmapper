@@ -229,11 +229,8 @@ $(document).ready(function() {
     });
 
     $(".tag-filter-submit").click(function() {
-        var tag = $(".tag-filter").val();
-        if (tag !== "") {
-            tag_filter = tag;
-            $(window).trigger("draw_markers");
-        }
+        var tag_filter = $(".tag-filter").val();
+        $(window).trigger("draw_markers");
     });
 
     if(moments !== undefined && moments.length > 0) {
