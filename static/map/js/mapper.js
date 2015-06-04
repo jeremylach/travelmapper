@@ -171,7 +171,7 @@ $(window).on('draw_markers',function(event) {
         //window.history.pushState(filter_states, "Travel Moments", new_url);
         History.pushState({"tag_filter": tag_filter, "tag_filter_name": tag_filter_name}, "Travel Moments", new_url);
     } else {
-        History.pushState({"tag_filter": "", "tag_filter_name": ""}, "Travel Moments", "http://" + window.location.host + window.location.pathname)
+        History.pushState({"tag_filter": "", "tag_filter_name": ""}, "Travel Moments", window.location.protocol + "//" + window.location.host + window.location.pathname)
     }
 
     if(map !== null) {
