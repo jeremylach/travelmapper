@@ -42,6 +42,7 @@ class MapView(TemplateView):
             context['username'] = target_username
         elif not self.request.user.is_anonymous() and self.request.user.is_authenticated():
             target_username = self.request.user.username
+            context['username'] = target_username
         else:
             context['moments_data'] = []
             return context
