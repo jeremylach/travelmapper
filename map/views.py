@@ -48,9 +48,13 @@ class MapView(TemplateView):
             #social_user = self.request.user.social_auth.get(provider="instagram")
         all_user_moment_data = PhotoMoment.get_moments_json(target_username)
 
+        context['tags'] = Tag.get_tags_by_user_json(target_username)
         context['moments_data'] = all_user_moment_data
 
-        context['tags'] = Tag.get_tags_json()
+        GET_tag_name = self.request.GET.get('tag', '')
+        context['tag_filter_name'] = GET_tag_name
+        context['tag_filter'] = Tag.get_tag_id_by_name(GET_tag_name, target_username)
+
 
             
             #photos = []

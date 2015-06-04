@@ -2,7 +2,10 @@
 var map = null;
 var min_filter_date = null;
 var max_filter_date = null;
-var tag_filter = "";
+
+var filter_states = [];
+
+//var tag_filter = "";
 
 if(moments !== undefined && moments.length > 0) {
     var min = new Date(moments[moments.length - 1].fields.created);
@@ -109,7 +112,6 @@ function reset_map(results) {
     if(map !== undefined) {
         map.markers_cluster.clearLayers();
     }
-
 }
 
 function remove_map() {
@@ -151,8 +153,27 @@ function tag_test(moment_obj) {
     //return true;
 }
 
+function get_id_from_tag_name(tag_name) {
+    for (ctr = 0; ctr < tags.length; ctr++) {
+        if (tags[ctr].label == tag_name) {
+            return tags[ctr].tag_id;
+        }
+    }
+    return "";
+}
+
+
 //Adds markers to map from moments
 $(window).on('draw_markers',function(event) {
+    if(tag_filter !== "") {
+        //var state_obj = {};
+        var new_url = updateURLParameter(window.location.href, "tag", tag_filter_name);
+        //window.history.pushState(filter_states, "Travel Moments", new_url);
+        History.pushState({"tag_filter": tag_filter, "tag_filter_name": tag_filter_name}, "Travel Moments", new_url);
+    } else {
+        History.pushState({"tag_filter": "", "tag_filter_name": ""}, "Travel Moments", "http://" + window.location.host + window.location.pathname)
+    }
+
     if(map !== null) {
 
         if(map.markers_cluster === undefined) {
@@ -170,9 +191,9 @@ $(window).on('draw_markers',function(event) {
             $(moments).each(function() {
                 var this_moment_date = new Date(this.fields.created);
                 this_moment_date = new Date(this_moment_date.toDateString());
-                window.console.log(min_filter_date);
-                window.console.log(this_moment_date >= min_filter_date);
-                window.console.log(min_filter_date);
+                //window.console.log(min_filter_date);
+                //window.console.log(this_moment_date >= min_filter_date);
+                //window.console.log(min_filter_date);
                 //window.console.log(this);
                 //make sure the moment's created date is between the current date range in view
                 if(this.fields.lat !== null && this_moment_date >= min_filter_date && this_moment_date <= max_filter_date && tag_test(this)) {
@@ -220,23 +241,51 @@ function zoom_to_fit() {
 }
 $(document).ready(function() {
 
+    History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+        var State = History.getState(); // Note: We are using History.getState() instead of event.state
+        //console.log(State);
+        tag_filter = State.data.tag_filter;
+        tag_filter_name = State.data.tag_filter_name;
+        $(window).trigger("draw_markers");
+    });
+
+/*window.onpopstate = function(e){
+console.log(e);
+    if(e.state){
+        //document.getElementById("content").innerHTML = e.state.html;
+        //document.title = e.state.pageTitle;
+        tag_filter = e.state.tag_filter;
+        tag_filter_name = e.state.tag_filter_name;
+        $(window).trigger("draw_markers");
+    }
+};*/
+
 /////////
-    //TODO: Make sure only tags for the current user and tags from photos within date range appear...
+    //TODO: Make sure only tags from photos within date range appear...
 ////////
     $( ".tag-filter" ).autocomplete({
-      source: tags
+        source: tags,
+        select: function( event, ui ) {
+            //console.log(ui);
+            tag_filter = ui.item.tag_id;
+            tag_filter_name = ui.item.label;
+            $(".map-form").submit();
+        }
     });
 
     $("#zoom-fit").click(function() {
         zoom_to_fit();
     });
 
-    $(".tag-filter-submit").click(function() {
-        tag_filter = $(".tag-filter").val();
+    $(".map-form").submit(function(e) {
+        e.preventDefault();
+        //tag_filter = $(".tag-filter").val();
         $(window).trigger("draw_markers");
+
     });
     $(".tag-filter-clear").click(function() {
         tag_filter = "";
+        tag_filter_name = "";
         $(".tag-filter").val(tag_filter);
         $(window).trigger("draw_markers");
     });
@@ -271,8 +320,8 @@ $(document).ready(function() {
             min_filter_date = data.values.min;//.getTime() / 1000;
             max_filter_date = data.values.max;//.getTime() / 1000;
 
-            console.log(min_filter_date);
-            console.log(max_filter_date);
+//            console.log(min_filter_date);
+//            console.log(max_filter_date);
 
             $(window).trigger("draw_markers");
         });

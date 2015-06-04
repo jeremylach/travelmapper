@@ -34,17 +34,27 @@ import json
 #    next_max_id = models.FloatField(default=0)
 
 class Tag(models.Model):
-    name = models.TextField(max_length=100, unique=True)
+    name = models.TextField(max_length=100)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     @staticmethod
-    def get_tags_json():
-        tags = Tag.objects.all()
+    def get_tags_by_user_json(username):
+        tags = Tag.objects.filter(user__username=username)
         tags_json = []
         if tags:
             for t in tags:
-                tags_json.append({"value":t.id, "label": t.name})
+                tags_json.append({"tag_id":t.id, "label": t.name})
 
         return json.dumps(tags_json)
+
+    @staticmethod
+    def get_tag_id_by_name(name, user):
+        tag = Tag.objects.filter(name = name, user__username = user)
+        
+        if tag:
+            return tag[0].id
+        else:
+            return ""
 
     def __unicode__(self):
         return self.name
@@ -98,7 +108,7 @@ class PhotoMoment(models.Model):
                         #print media.tags
                         for tag in media.tags:
                             tag_text = tag.name
-                            t, created = Tag.objects.get_or_create(name=tag_text)
+                            t, created = Tag.objects.get_or_create(name=tag_text, user=social_user.user)
                             insta_data.tags.add(t)
 
                 except IntegrityError:

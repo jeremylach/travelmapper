@@ -4,15 +4,19 @@
     <script>
         var moments = {{ moments_data|safe }};
         var tags = {{ tags|safe }};
+        tag_filter = "{{ tag_filter|safe }}";
+        tag_filter_name = "{{ tag_filter_name|safe }}";
 //console.log(moments);
     </script>
     <button id='zoom-fit'>Zoom to Fit</button>
     {% if username %}
         <h1>Showing Moments for: {{username}}</h1>
         <div class='date-filter'></div>
-        <input class='tag-filter' />
-        <button class='tag-filter-submit'>Filter</button>
-        <button class='tag-filter-clear'>Clear</button>
+        <form class='map-form' action="#">
+            <input class='tag-filter' value='{{ tag_filter_name|safe }} ' />
+            <input type='submit' class='tag-filter-submit' value='Filter' />
+            <button class='tag-filter-clear'>Clear</button>
+        </form>
     {% endif %}
     
 	<div class="map" id="map"></div>

@@ -8,7 +8,8 @@ class PhotoMomentAdmin(admin.ModelAdmin):
 admin.site.register(PhotoMoment, PhotoMomentAdmin)
 
 class TagAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ("user",)
+    list_display = ['name', 'user']
 
 admin.site.register(Tag,TagAdmin)
 
