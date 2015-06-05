@@ -3,16 +3,21 @@ var map = null;
 var min_filter_date = null;
 var max_filter_date = null;
 
+var real_min_date = null;
+var real_max_date = null;
+
 var filter_states = [];
 
 //var tag_filter = "";
 
-if(moments !== undefined && moments.length > 0) {
-    var min = new Date(moments[moments.length - 1].fields.created);
-    var max = new Date(moments[0].fields.created);
+ if(moments !== undefined && moments.length > 0) {
+    real_min_date = new Date(moments[moments.length - 1].fields.created);
+    real_min_date = new Date(real_min_date.toDateString());
+    real_max_date = new Date(moments[0].fields.created);
+    real_max_date = new Date(real_max_date.toDateString());
 
-    var min_filter_date = new Date(min.toDateString());
-    var max_filter_date = new Date(max.toDateString());
+    var min_filter_date = real_min_date;
+    var max_filter_date = real_max_date;
     //var min_filter_unix = min_filter_date.getTime() / 1000;
     //var max_filter_unix = max_filter_date.getTime() / 1000;
 }
@@ -162,6 +167,11 @@ function get_id_from_tag_name(tag_name) {
     return "";
 }
 
+function reset_date_filters() {
+console.log(real_max_date);
+    $(".date-filter").dateRangeSlider("values", real_min_date, real_max_date);
+}
+
 
 //Adds markers to map from moments
 $(window).on('draw_markers',function(event) {
@@ -280,6 +290,8 @@ console.log(e);
     $(".map-form").submit(function(e) {
         e.preventDefault();
         //tag_filter = $(".tag-filter").val();
+
+        reset_date_filters();
         $(window).trigger("draw_markers");
 
     });
@@ -299,6 +311,8 @@ console.log(e);
         //var max_date = new Date(max.toDateString());
 //console.log(new Date(min));        
 //console.log(new Date(max).getTime());
+
+       
 
         $(".date-filter").dateRangeSlider({
             bounds:{

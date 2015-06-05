@@ -10,7 +10,6 @@ $(document).ready(function() {
     	event.preventDefault();
     	$('#wrap-sign').css('display','block');
     });
-       
 });
 
 function updateURLParameter(url, param, paramVal){
