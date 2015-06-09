@@ -21,7 +21,38 @@ a {
     border: 1px solid red;
 }
 
+#slideshow {
+    z-index: 99999;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+
 .popup {
     color: black;
     text-align: center;
+    font-size: 10px;
+}
+.popup .date {
+    
+}
+.popup .caption {
+    font-size: 12px;
+    margin: 5px auto;
+}
+.popup .name {
+    /*margin: 5px auto;*/
+}
+.popup .details {
+    /*margin-bottom : 5px;*/
+}
+.date-filter {
+    margin: 50px;
+}
+.tag-filter {
+    margin-left: 50px;
 }
