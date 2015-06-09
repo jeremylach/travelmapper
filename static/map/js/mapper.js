@@ -285,6 +285,7 @@ $(document).ready(function() {
         //console.log(State);
         tag_filter = State.data.tag_filter;
         tag_filter_name = State.data.tag_filter_name;
+        $(".tag-filter").val(tag_filter_name);
         $(window).trigger("draw_markers");
     });
 
