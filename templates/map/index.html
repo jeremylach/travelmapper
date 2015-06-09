@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
+    
+    <div id="slideshow">
+    <button class='slideshow-hide'>Return to map</button>
+    <button class='slideshow-play-pause'>Pause</button>
+    <button class='slideshow-previous'>Previous</button>
+    <button class='slideshow-next'>Next</button>
+
+        <div class='slide-info'>
+            <div class='slide-name'></div>
+            <div class='slide-date'></div>
+            <div class='slide-caption'></div>
+        </div>
+    </div>
 
     <script>
         var moments = {{ moments_data|safe }};
@@ -12,6 +25,7 @@
 //console.log(moments);
     </script>
     <button id='zoom-fit'>Zoom to Fit</button>
+    <button class='slideshow-start'>Slideshow</button>
     {% if username %}
         <h1>Showing Moments for: {{username}}</h1>
         <div class='date-filter'></div>

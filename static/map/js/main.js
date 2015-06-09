@@ -31,3 +31,4 @@ function updateURLParameter(url, param, paramVal){
     var rows_txt = temp + "" + param + "=" + paramVal;
     return baseURL + "?" + newAdditionalURL + rows_txt;
 }
+

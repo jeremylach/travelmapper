@@ -6,14 +6,15 @@ var max_filter_date = null;
 var real_min_date = null;
 var real_max_date = null;
 
-var filter_states = [];
+//var filter_states = [];
+var filtered_moments = [];
 
 //var tag_filter = "";
 
  if(moments !== undefined && moments.length > 0) {
-    real_min_date = new Date(moments[moments.length - 1].fields.created);
+    real_min_date = new Date(moments[0].fields.created);
     real_min_date = new Date(real_min_date.toDateString());
-    real_max_date = new Date(moments[0].fields.created);
+    real_max_date = new Date(moments[moments.length - 1].fields.created);
     real_max_date = new Date(real_max_date.toDateString());
 
     var min_filter_date = real_min_date;
@@ -172,9 +173,24 @@ console.log(real_max_date);
     $(".date-filter").dateRangeSlider("values", real_min_date, real_max_date);
 }
 
+function get_slideshow_sources() {
+    var slide_sources = []
+    for(var ctr = 0; ctr < filtered_moments.length; ctr++) {
+            var the_moment = filtered_moments[ctr];
+            if (the_moment.fields.media_type == "video") {
+                slide_sources.push({src: the_moment.fields.thumbnail, video: { src: [the_moment.fields.standard_resolution] }})
+            } else {
+                slide_sources.push({src: the_moment.fields.standard_resolution})
+            }
+        }
+    return slide_sources;
+}
+
 
 //Adds markers to map from moments
 $(window).on('draw_markers',function(event) {
+    //$("#slideshow").vegas("destroy");
+    filtered_moments = []
     if(tag_filter !== "") {
         //var state_obj = {};
         var new_url = updateURLParameter(window.location.href, "tag", tag_filter_name);
@@ -182,6 +198,12 @@ $(window).on('draw_markers',function(event) {
         History.pushState({"tag_filter": tag_filter, "tag_filter_name": tag_filter_name}, "Travel Moments", new_url);
     } else {
         History.pushState({"tag_filter": "", "tag_filter_name": ""}, "Travel Moments", window.location.protocol + "//" + window.location.host + window.location.pathname)
+    }
+
+    if($("#slideshow").hasClass("vegas-container")) {
+        $("#slideshow").vegas("destroy");
+        $("#slideshow").hide();
+        //alert("destroy");
     }
 
     if(map !== null) {
@@ -212,6 +234,7 @@ $(window).on('draw_markers',function(event) {
                     /*if(this.sold_out) {
                         the_icon = map.event_sold_out_icon;
                     }*/
+                    filtered_moments.push(this);
 
                     var new_marker = new L.marker([this.fields.lat, this.fields.lng]).bindPopup(generate_map_marker_popup(this), {maxWidth: 150, minWidth: 150});
                 
@@ -249,6 +272,12 @@ $(window).on('draw_markers',function(event) {
 function zoom_to_fit() {
     map.fitBounds(map.markers_cluster.getBounds());
 }
+
+function slideshow_play_pause() {
+    var playing = $("#slideshow").vegas("playing");
+    if(playing) { $(".slideshow-play-pause").html("Pause"); } else { $(".slideshow-play-pause").html("Play"); }
+}
+
 $(document).ready(function() {
 
     History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
@@ -259,6 +288,7 @@ $(document).ready(function() {
         $(window).trigger("draw_markers");
     });
 
+    
 /*window.onpopstate = function(e){
 console.log(e);
     if(e.state){
@@ -340,5 +370,59 @@ console.log(e);
             $(window).trigger("draw_markers");
         });
     }
+
+
+    $(".slideshow-start").click(function() {
+
+        var slide_sources = get_slideshow_sources();
+
+        //console.log(slide_sources);
+        if(!$("#slideshow").hasClass("vegas-container")) {
+            $('#slideshow').vegas({
+                slides: slide_sources,
+                preload: true,
+                cover: false,
+                autoplay: false,
+                timer: false,
+                walk: function (index, slideSettings) {
+        
+                    var the_moment = filtered_moments[index];
+        
+                    $(".slide-date").html(dateToYMD(new Date(the_moment.fields.created)));
+                    $(".slide-name").html(the_moment.fields.name);
+                    $(".slide-caption").html(the_moment.fields.caption);
+                },
+                play: function() {slideshow_play_pause();},
+                pause: function() {slideshow_play_pause();}
+            });
+        }
+        else {
+            $("#slideshow").vegas('options', 'slides', slide_sources)
+        }
+
+        if (filtered_moments.length > 0) {
+            $("#slideshow").show();
+            window.setTimeout(function() {$("#slideshow").vegas("play");}, 5000)
+        }
+        
+    });
+    
+    $(".slideshow-hide").click(function() {
+        $("#slideshow").vegas("pause");        
+        $("#slideshow").hide();
+    });
+
+    $(".slideshow-play-pause").click(function() {
+        $("#slideshow").vegas("toggle");
+    });
+
+    $('.slideshow-previous').on('click', function () {
+        $("#slideshow").vegas('previous');
+    });
+    
+    $('.slideshow-next').on('click', function () {
+        $("#slideshow").vegas('next');
+    });
+
 //dateRangeSlider("bounds", new Date(2012, 0, 1), new Date(2012, 0, 31));
 });
