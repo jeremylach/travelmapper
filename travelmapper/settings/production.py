@@ -40,7 +40,7 @@ PROJECT_DIR = Path(__file__).ancestor(3)
 
 STATIC_ROOT = 'staticfiles'
 
-SITE_URL = "http://travelmoments.herokuapp.com/"
+SITE_URL = "http://momentmapper.com/"
 
 #STATICFILES_DIRS = (
     #os.path.join(BASE_DIR, 'staticfiles'),
