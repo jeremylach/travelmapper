@@ -63,7 +63,7 @@ import sys
 
 ########## HOST CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-ALLOWED_HOSTS = [".travelmoments.com", ".herokuapp.com"]
+ALLOWED_HOSTS = [".travelmoments.com", ".herokuapp.com", ".momentmapper.com"]
 ########## END HOST CONFIGURATION
 
 INSTAGRAM_CLIENT_ID = '2d4d63d01aa44f80be1dadaa7eefc99f'
