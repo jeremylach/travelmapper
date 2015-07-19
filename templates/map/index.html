@@ -30,9 +30,7 @@
     </script>
     
     {% if username %}
-        <button id='zoom-fit'>Zoom to Fit</button>
-        <button class='slideshow-start'>Slideshow</button>
-        <div>
+        <div style='margin-top: 10px'>
             <strong>Showing Moments for: <span id='username'>{{username}}</span></strong><br />
             <button id='share-moments'>Share Moments</button>
             <div class='share-popup modal fade' role="dialog">
@@ -51,12 +49,20 @@
             </div>
         </div>
         <div class='date-filter'></div>
-        <form class='map-form' action="#">
-            Search by tag
-            <input class='tag-filter' value='{{ tag_filter_name|safe }} ' />
-            <input type='submit' class='tag-filter-submit' value='Filter' />
-            <button class='tag-filter-clear'>Clear</button>
-        </form>
+        <div class='row'>
+            <div class='col-md-6'>
+                <form class='map-form' action="#">
+                    Search by tag
+                    <input class='tag-filter' value='{{ tag_filter_name|safe }} ' />
+                    <input type='submit' class='tag-filter-submit' value='Filter' />
+                    <button class='tag-filter-clear'>Clear</button>
+                </form>
+            </div>
+            <div class='col-md-6'>
+                <button id='zoom-fit'>Zoom to Fit</button>
+                <button class='slideshow-start'>Slideshow</button>
+            </div>
+        </div>
     {% endif %}
     
 	<div class="map" id="map"></div>
