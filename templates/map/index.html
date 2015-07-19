@@ -32,7 +32,24 @@
     {% if username %}
         <button id='zoom-fit'>Zoom to Fit</button>
         <button class='slideshow-start'>Slideshow</button>
-        <div><strong>Showing Moments for: {{username}}</strong></div>
+        <div>
+            <strong>Showing Moments for: <span id='username'>{{username}}</span></strong><br />
+            <button id='share-moments'>Share Your Moments</button>
+            <div class='share-popup modal fade' role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="">Share your moments</h4>
+                      </div>
+                      <div class="modal-body">
+                        Send this URL to friends to share your moments.
+                        <div class='share-url'></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class='date-filter'></div>
         <form class='map-form' action="#">
             <input class='tag-filter' value='{{ tag_filter_name|safe }} ' />
