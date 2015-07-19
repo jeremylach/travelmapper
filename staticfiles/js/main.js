@@ -10,6 +10,17 @@ $(document).ready(function() {
     	event.preventDefault();
     	$('#wrap-sign').css('display','block');
     });
+	 
+	 $("#share-moments").click(function() {
+		  var share_url = window.location.href;
+		  var query_string = window.location.search;
+		  if(window.location.href.indexOf("moments") == -1) {
+				var username = $("#username").html();
+				share_url = "http://www.momentmapper.com/moments/"+username+query_string;
+		  }
+		  $(".share-url").html(share_url);
+		  $('.share-popup').modal()
+	 });
 });
 
 function updateURLParameter(url, param, paramVal){
