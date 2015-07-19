@@ -27,7 +27,7 @@
     <button id='zoom-fit'>Zoom to Fit</button>
     <button class='slideshow-start'>Slideshow</button>
     {% if username %}
-        <h1>Showing Moments for: {{username}}</h1>
+        <div><strong>Showing Moments for: {{username}}</strong></div>
         <div class='date-filter'></div>
         <form class='map-form' action="#">
             <input class='tag-filter' value='{{ tag_filter_name|safe }} ' />
