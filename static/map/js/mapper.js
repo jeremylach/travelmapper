@@ -137,6 +137,7 @@ function dateToYMD(date) {
     //var m = date.getMonth() + 1;
     //var y = date.getFullYear();
     //return (m<=9 ? '0' + m : m) + (d <= 9 ? '0' + d : d) + y;
+    console.log(date.toLocaleString());
     return date.toLocaleString();
 }
 
@@ -275,7 +276,7 @@ function zoom_to_fit() {
 
 function slideshow_play_pause() {
     var playing = $("#slideshow").vegas("playing");
-    if(playing) { $(".slideshow-play-pause").html("Pause"); } else { $(".slideshow-play-pause").html("Play"); }
+    if(playing) { $(".slideshow-play-pause").addClass("glyphicon-pause").removeClass("glyphicon-play"); } else { $(".slideshow-play-pause").addClass("glyphicon-play").removeClass("glyphicon-pause"); }
 }
 
 $(document).ready(function() {
