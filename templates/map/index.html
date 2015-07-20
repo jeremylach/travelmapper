@@ -32,7 +32,7 @@
     </script>
     
     {% if username %}
-        <div style='margin-top: 10px'>
+        <div>
             <!--<strong>Showing Moments for: <span id='username'>{{username}}</span></strong><br />-->
             
             <div class='share-popup modal fade' role="dialog">
@@ -50,7 +50,6 @@
                 </div>
             </div>
         </div>
-        <div class='date-filter'></div>
     {% endif %}
 
     
@@ -67,7 +66,6 @@
                         <p>Moment Mapper is a convenient way to share moments and memories from your travels.  Just log in with Instagram to begin exploring your photos.  Any location enabled photos will appear on the map.  You can filter by date range or tag.  Share your moments with friends and family without the need for them to have an Instagram account.</p>
                         <button><a href="{% url 'socialauth_begin' 'instagram' %}" class='login'>Login with Instagram</a></button>
                     </div>
-                    
                 </div>
             {% else %}
                 <div class="map row-fluid" id="map"></div>
@@ -86,6 +84,7 @@
                         <strong> Welcome {% social_name user %}</strong> | <a href="{% url 'auth_logout' %}">Logout</a><br /><span class='notice'>Note: Past photos will fill in over time.  The more photos you have, the longer it will take.</span>
                     </div>
                 </div>
+                <div class='date-filter'></div>
             {% endif %}
         </div>
     </div>
