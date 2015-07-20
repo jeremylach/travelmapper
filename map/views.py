@@ -8,6 +8,8 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from management.commands import fetch_photos
+from django.core.management import call_command
 
 
 import logging
@@ -90,7 +92,7 @@ def logout(request):
 
 def process_user_update(update):
 #    print "USER UPDATED!!!!!"
-#    print update
+#   print update
 
     logger = logging.getLogger('testlogger')
     logger.info("process user update")
@@ -104,8 +106,19 @@ def process_user_update(update):
     logger.info(recent_media)
     
     PhotoMoment.process_recent_media(recent_media, social_user)
+
+
     
     return HttpResponse("Updated!!!")
+
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User
+
+def initial_fetch(sender, instance, signal, *args, **kwargs):
+    call_command('fetch_photos')
+    print "FETCHING PHOTOS!@!!!!!"
+
+post_save.connect(initial_fetch, sender=User)
 
 def requestMediaByUser( user_id, subscription_id ):
     logger = logging.getLogger('testlogger')
