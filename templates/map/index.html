@@ -33,7 +33,7 @@
     
     {% if username %}
         <div style='margin-top: 10px'>
-            <strong>Showing Moments for: <span id='username'>{{username}}</span></strong><br />
+            <!--<strong>Showing Moments for: <span id='username'>{{username}}</span></strong><br />-->
             
             <div class='share-popup modal fade' role="dialog">
                 <div class="modal-dialog" role="document">
@@ -83,7 +83,7 @@
                         <button class='share-moments'>Share Moments</button>
                     </div>
                     <div class='col-md-3 pull-right'>
-                        Welcome {% social_name user %} | <a href="{% url 'auth_logout' %}">Logout</a><br /><i>Note: Past photos will fill in over time.  The more photos you have, the longer it will take.</i>
+                        <strong> Welcome {% social_name user %}</strong> | <a href="{% url 'auth_logout' %}">Logout</a><br /><span class='notice'>Note: Past photos will fill in over time.  The more photos you have, the longer it will take.</span>
                     </div>
                 </div>
             {% endif %}
