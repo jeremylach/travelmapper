@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    if($(".map").length > 0) {
+    if($("#map").length > 0) {
         setTimeout(function(){ mapper(); },200);
     }
     $('.close_modal').bind('click', function(event){
@@ -11,7 +11,7 @@ $(document).ready(function() {
     	$('#wrap-sign').css('display','block');
     });
 	 
-	 $("#share-moments").click(function() {
+	 $(".share-moments").click(function() {
 		  var share_url = window.location.href;
 		  var query_string = window.location.search;
 		  if(window.location.href.indexOf("moments") == -1) {
