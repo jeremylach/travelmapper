@@ -81,7 +81,11 @@
                         <button class='share-moments'>Share Moments</button>
                     </div>
                     <div class='col-md-3 pull-right'>
-                        <strong> Welcome {% social_name user %}</strong> | <a href="{% url 'auth_logout' %}">Logout</a><br /><span class='notice'>Note: Past photos will fill in over time.  The more photos you have, the longer it will take.</span>
+                        {% if username and user and user.is_anonymous %}
+                            <button><a href="{% url 'socialauth_begin' 'instagram' %}" class='login'>Login with Instagram</a></button>
+                        {% else %}
+                            <strong> Welcome {% social_name user %}</strong> | <a href="{% url 'auth_logout' %}">Logout</a><br /><span class='notice'>Note: Past photos will fill in over time.  The more photos you have, the longer it will take.</span>
+                        {% endif %}
                     </div>
                 </div>
                 <div class='date-filter'></div>
