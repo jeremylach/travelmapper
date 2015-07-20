@@ -1,5 +1,4 @@
 {% load static %}
-{% load map_tags %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,18 +21,6 @@
         <!--[if lte IE 9]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-        {% if user and not user.is_anonymous %}<!-- and not user.is_superuser %}-->
-            <!--{{ photos|safe }}-->
-            Welcome {% social_name user %} | <a href="{% url 'auth_logout' %}">Logout</a><br /><i>Note: Past photos will fill in over time.  The more photos you have, the longer it will take.</i>
-            <br />
-            
-        {% else %}
-            <div class='row'>
-                <div class='col-md-9'>Moment Mapper is a convenient way to share moments and memories from your travels.  Just log in with Instagram to begin exploring your photos.  Any location enabled photos will appear on the map.  You can filter by date range or tag.  Share your moments with friends and family without the need for them to have an Instagram account.</div>
-                <div class='col-md-3'><a href="{% url 'socialauth_begin' 'instagram' %}" class='login'>Login with Instagram</a></div>
-            </div>
-        {% endif %}        
 
         {% block content %}
     

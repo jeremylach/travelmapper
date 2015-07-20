@@ -1,11 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+{% load map_tags %}
 {% block content %}
     
     <div id="slideshow">
-    <button class='slideshow-hide'>Return to map</button>
-    <button class='slideshow-play-pause'>Pause</button>
-    <button class='slideshow-previous'>Previous</button>
-    <button class='slideshow-next'>Next</button>
+        <button class='slideshow-hide'>Return to map</button>
+        <button class='slideshow-play-pause'>Pause</button>
+        <button class='slideshow-previous'>Previous</button>
+        <button class='slideshow-next'>Next</button>
 
         <div class='slide-info'>
             <div class='slide-name'></div>
@@ -32,7 +34,7 @@
     {% if username %}
         <div style='margin-top: 10px'>
             <strong>Showing Moments for: <span id='username'>{{username}}</span></strong><br />
-            <button id='share-moments'>Share Moments</button>
+            
             <div class='share-popup modal fade' role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -49,23 +51,45 @@
             </div>
         </div>
         <div class='date-filter'></div>
-        <div class='row'>
-            <div class='col-md-6'>
-                <form class='map-form' action="#">
-                    Search by tag
-                    <input class='tag-filter' value='{{ tag_filter_name|safe }} ' />
-                    <input type='submit' class='tag-filter-submit' value='Filter' />
-                    <button class='tag-filter-clear'>Clear</button>
-                </form>
-            </div>
-            <div class='col-md-6'>
-                <button id='zoom-fit'>Zoom to Fit</button>
-                <button class='slideshow-start'>Slideshow</button>
-            </div>
-        </div>
     {% endif %}
+
     
-	<div class="map" id="map"></div>
+    <div class="container-fluid">
+        <div class="mapbox row">
+            
+            {% if user and user.is_anonymous %}
+                <div class="map row-fluid" id="">
+                    <img class='map-placeholder' src="{% static 'img/moment_mapper_sample.png' %}" />
+                </div>
+
+                <div class="row-fluid overlay intro">
+                    <div class='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1'>
+                        <p>Moment Mapper is a convenient way to share moments and memories from your travels.  Just log in with Instagram to begin exploring your photos.  Any location enabled photos will appear on the map.  You can filter by date range or tag.  Share your moments with friends and family without the need for them to have an Instagram account.</p>
+                        <button><a href="{% url 'socialauth_begin' 'instagram' %}" class='login'>Login with Instagram</a></button>
+                    </div>
+                    
+                </div>
+            {% else %}
+                <div class="map row-fluid" id="map"></div>
+                <div class="row-fluid overlay map-controls">
+                    <div class='col-md-9'>
+                        <form class='map-form' action="#">
+                            <input class='tag-filter' placeholder='Search by tag' {% if tag_filter_name %} value='{{ tag_filter_name|safe }}' {% endif %} />
+                            <input type='submit' class='tag-filter-submit' value='Filter' />
+                            <button class='tag-filter-clear'>Clear</button>
+                        </form>
+                        <button id='zoom-fit'>Zoom to Fit</button>
+                        <button class='slideshow-start'>Slideshow</button>
+                        <button class='share-moments'>Share Moments</button>
+                    </div>
+                    <div class='col-md-3 pull-right'>
+                        Welcome {% social_name user %} | <a href="{% url 'auth_logout' %}">Logout</a><br /><i>Note: Past photos will fill in over time.  The more photos you have, the longer it will take.</i>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+	
 {% endblock %}
 
 <!-- TODO
