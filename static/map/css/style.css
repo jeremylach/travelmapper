@@ -40,11 +40,14 @@ a {
 /*    padding-bottom: 20px;
 }*/
 
-/*@media screen and (max-width:599px) {
+@media screen and (max-width:599px) {
     .intro {
         font-size: 14px;
     }
-}*/
+    #slideshow {
+        font-size: 16px;
+    }
+}
 
 img.map-placeholder {
    width: 100%; 
