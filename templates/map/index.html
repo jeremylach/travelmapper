@@ -53,14 +53,10 @@
     {% endif %}
 
     
-    <div class="container-fluid">
-        <div class="mapbox row">
+    <div class="container-fluid ui-wrap">
+        <div class="mapbox row {% if user and user.is_anonymous and not username %}logged-out{% endif %}" {% if user and user.is_anonymous and not username %}style="background-image: url({% static 'img/moment_mapper_sample.png' %})"{% endif %}>
             
             {% if user and user.is_anonymous and not username %}
-                <div class="map row-fluid" id="">
-                    <img class='map-placeholder' src="{% static 'img/moment_mapper_sample.png' %}" />
-                </div>
-
                 <div class="row-fluid overlay intro">
                     <div class='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1'>
                         <p>Moment Mapper is a convenient way to share moments and memories from your travels.  Just log in with Instagram to begin exploring your photos.  Any location enabled photos will appear on the map.  You can filter by date range or tag.  Share your moments with friends and family without the need for them to have an Instagram account.</p>

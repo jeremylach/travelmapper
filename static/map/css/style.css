@@ -16,13 +16,27 @@ a {
 .login {
     font-size: 18px;
 }
+
+.ui-wrap {
+    height: 100%;
+}
+
 #map {
     width: 100%;
-    height: 70%;
-    max-width: 1200px;
-    max-height: 600px;
+    height: 100%;
+    /*max-width: 1200px;
+    max-height: 600px;*/
     min-width: 1000px;
     min-height: 400px;
+}
+.mapbox {
+    height: 85%;
+}
+
+.mapbox.logged-out {
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .intro {
@@ -32,7 +46,7 @@ a {
     font-size: 16px;
     text-align: center;
     height: 100%;
-    padding-top: 10%;
+    padding-top: 16%;
 }
 /*.intro {
     /*margin: 0 auto;*/
