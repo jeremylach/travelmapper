@@ -315,7 +315,7 @@ console.log(e);
         }
     });
 
-    $("#zoom-fit").click(function() {
+    $(".zoom-fit").click(function() {
         zoom_to_fit();
     });
 
