@@ -82,7 +82,7 @@
                                 </div>                                
                             </form>
                         </div>
-                        <div class="left-inner-addon">
+                        <div class="left-inner-addon" style='clear: both;'>
                             <i class="glyphicon glyphicon-globe"></i>
                             <button class='zoom-fit btn btn-default'>Zoom to Fit</button>
                         </div>
@@ -97,18 +97,16 @@
                         </div>
                     </div>
                     
+                    <div class='col-md-3'>
                         {% if username and user and user.is_anonymous %}
-                        <div class='col-md-3'>
                             <a href="{% url 'socialauth_begin' 'instagram' %}" class="btn btn-block btn-social btn-instagram login">
-                            <i class="fa fa-instagram"></i> Sign in with Instagram
+                                <i class="fa fa-instagram"></i> Sign in with Instagram
                             </a>
-                        </div>
                         {% else %}
-                        
-                        <div class='col-md-3 pull-right'>
                             <strong> Welcome {% social_name user %}</strong> | <a href="{% url 'auth_logout' %}" class='btn btn-default'>Logout</a><br /><span class='notice'>Note: Past photos will fill in over time.  The more photos you have, the longer it will take.</span>
-                        </div>
                         {% endif %}
+                    </div>
+                        
                     </div>
                 </div>
                 <div class='date-filter'></div>
