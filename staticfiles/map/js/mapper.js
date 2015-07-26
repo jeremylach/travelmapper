@@ -344,8 +344,6 @@ console.log(e);
 //console.log(new Date(min));        
 //console.log(new Date(max).getTime());
 
-       
-
         $(".date-filter").dateRangeSlider({
             bounds:{
                 min: min_filter_date,
