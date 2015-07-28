@@ -223,7 +223,7 @@ $(window).on('draw_markers',function(event) {
 
             $(moments).each(function() {
                 var this_moment_date = new Date(this.fields.created);
-                this_moment_date = new Date(new Date(this_moment_date).toDateString());
+                this_moment_date = new Date(this_moment_date.toDateString());
                 //window.console.log(min_filter_date);
                 //window.console.log(this_moment_date >= min_filter_date);
                 //window.console.log(min_filter_date);
@@ -396,8 +396,8 @@ console.log(e);
             min_filter_date = data.values.min;//.getTime() / 1000;
             max_filter_date = data.values.max;//.getTime() / 1000;
 
-//            console.log(min_filter_date);
-//            console.log(max_filter_date);
+            console.log(min_filter_date);
+            console.log(max_filter_date);
 
             $(window).trigger("draw_markers");
         });
