@@ -11,14 +11,14 @@ var filtered_moments = [];
 
 //var tag_filter = "";
 
- if(moments !== undefined && moments.length > 0) {
+if(moments !== undefined && moments.length > 0) {
     real_min_date = new Date(moments[0].fields.created);
     real_min_date = new Date(real_min_date.toDateString());
     real_max_date = new Date(moments[moments.length - 1].fields.created);
     real_max_date = new Date(real_max_date.toDateString());
 
-    var min_filter_date = real_min_date;
-    var max_filter_date = real_max_date;
+    min_filter_date = real_min_date;
+    max_filter_date = real_max_date;
     //var min_filter_unix = min_filter_date.getTime() / 1000;
     //var max_filter_unix = max_filter_date.getTime() / 1000;
 }
@@ -223,7 +223,7 @@ $(window).on('draw_markers',function(event) {
 
             $(moments).each(function() {
                 var this_moment_date = new Date(this.fields.created);
-                this_moment_date = new Date(this_moment_date.toDateString());
+                this_moment_date = new Date(new Date(this_moment_date).toDateString());
                 //window.console.log(min_filter_date);
                 //window.console.log(this_moment_date >= min_filter_date);
                 //window.console.log(min_filter_date);
@@ -357,6 +357,38 @@ console.log(e);
                 days: 1
             }
         });
+
+        /*
+        // Get context with jQuery - using jQuery's .get() method.
+        var ctx = $("#myChart").get(0).getContext("2d");
+        // This will get the first returned node in the jQuery collection.
+        var data = {
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [
+            {
+                label: "My First dataset",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: [65, 59, 80, 81, 56, 55, 40]
+            },
+            {
+                label: "My Second dataset",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [28, 48, 40, 19, 86, 27, 90]
+            }
+        ]
+    };
+        var myNewChart = new Chart(ctx).Line(data, options);
+        */      
 
         $(".date-filter").bind("valuesChanged", function(e, data){
             //console.log("Values just changed. min: " + data.values.min + " max: " + data.values.max);
