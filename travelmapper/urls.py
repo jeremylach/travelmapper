@@ -13,6 +13,10 @@ urlpatterns = patterns('',
     url(r'^', include('map.urls')),
 )
 
+urlpatterns += patterns('loginas.views',
+    url(r"^login/user/(?P<user_id>.+)/$", "user_login", name="loginas-user-login"),
+)
+
 #urlpatterns += map.urls.urlpatterns
 
 #from django.contrib.staticfiles.urls import staticfiles_urlpatterns

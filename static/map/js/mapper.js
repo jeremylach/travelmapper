@@ -137,7 +137,7 @@ function dateToYMD(date) {
     //var m = date.getMonth() + 1;
     //var y = date.getFullYear();
     //return (m<=9 ? '0' + m : m) + (d <= 9 ? '0' + d : d) + y;
-    console.log(date.toLocaleString());
+    //console.log(date.toLocaleString());
     return date.toLocaleString();
 }
 
