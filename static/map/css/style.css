@@ -167,7 +167,7 @@ button {
 .right-inner-addon i {
     position: absolute;
     right: 0px;
-    padding: 10px 12px;
+    padding: 0px 12px;
 }
 
 .left-inner-addon {
@@ -178,5 +178,5 @@ button {
 }
 .left-inner-addon i {
     position: absolute;
-    padding: 10px 12px;
+    padding: 0px 12px;
 }
