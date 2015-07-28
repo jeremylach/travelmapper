@@ -390,7 +390,7 @@ console.log(e);
         var myNewChart = new Chart(ctx).Line(data, options);
         */      
 
-        /*$(".date-filter").bind("valuesChanged", function(e, data){
+        $(".date-filter").bind("userValuesChanged", function(e, data){
             //console.log("Values just changed. min: " + data.values.min + " max: " + data.values.max);
             //console.log(data.values.min.getTime() / 10000);
             min_filter_date = data.values.min;//.getTime() / 1000;
@@ -400,7 +400,7 @@ console.log(e);
             console.log(max_filter_date);
 
             $(window).trigger("draw_markers");
-        });*/
+        });
     }
 
 
