@@ -395,7 +395,7 @@ console.log(e);
             //console.log(data.values.min.getTime() / 10000);
             min_filter_date = data.values.min;//.getTime() / 1000;
             max_filter_date = data.values.max;//.getTime() / 1000;
-
+            console.log(data);
             console.log(min_filter_date);
             console.log(max_filter_date);
 
