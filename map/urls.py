@@ -5,8 +5,9 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = patterns('',
     #url(r'^story/$', Index.as_view(), name='index'),
-    url(r'^$', MapView.as_view(), name='index'),
+    url(r'^$', MapView.as_view(), name='index'),    
     url(r'^moments/(?P<username>[-\w.]+)', MapView.as_view(), name="index"),
+    url(r'^moments/', MapView.as_view(), name="index"),
     #url(r'^logout/$', 'logout', name='logout')
     url(r'^logout/$', auth_views.logout,
         #{'template_name': 'registration/logout.html'},
